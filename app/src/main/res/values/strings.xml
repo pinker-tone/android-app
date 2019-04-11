@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">pinkerCardsMVP</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_profile">Profile</string>
+    <string name="enterSign">Вход</string>
+    <string name="registrationSign">Регистрация</string>
+    <string name="registrationGoto">Регистрация</string>
+    <string name="loginGoto">Вход</string>
+    <string name="loginMailHint">Логин / E-mail</string>
+    <string name="passwordHint">Пароль</string>
+    <string name="enterBtn">Войти</string>
+    <string name="registrationBtn">Зарегистрироваться</string>
+    <string name="confirmPasswordHint">Подтвердите пароль</string>
+    <string name="emailHint">E-mail</string>
+    <string name="loginHint">Имя пользователя</string>
+</resources>

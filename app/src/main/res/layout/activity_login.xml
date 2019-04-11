@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:weightSum="5"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    tools:context=".LoginActivity">
+
+
+    <TextView
+        android:id="@+id/enterBigTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/enterSign"
+        android:textSize="36sp"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_weight="2"
+        tools:layout_editor_absoluteX="0dp">
+
+        <EditText
+            android:id="@+id/enterLoginEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:hint="@string/loginMailHint"
+            android:autofillHints="hello psina"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/enterPasswordEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:hint="@string/passwordHint"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/enterLoginBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/enterBtn" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/enterGotoRegistrationTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/registrationGoto"
+        android:onClick="jumpToSignUp"/>
+
+
+</LinearLayout>
