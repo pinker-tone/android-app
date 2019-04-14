@@ -27,7 +27,6 @@ public class BattlesActivity extends AppCompatActivity {
         LayoutInflater ltInflater = getLayoutInflater();
 
         for (int i = 0; i < name.length; i++) {
-            //Log.d("myLogs", "i = " + i);
             View battle_item = ltInflater.inflate(R.layout.battle_item, linLayout, false);
 
             TextView enemyName = (TextView) battle_item.findViewById(R.id.enemyName);
@@ -38,9 +37,10 @@ public class BattlesActivity extends AppCompatActivity {
             subjectName.setText(subject[i]);
             TextView battleState = (TextView) battle_item.findViewById(R.id.battleState);
             TextView battleScore = (TextView) battle_item.findViewById(R.id.battleScore);
+
             switch (state[i]) {
                 case 0:
-                    battleState.setText("Не завершено");
+                    battleState.setText("Ожидание");
                     battleState.setBackgroundColor( getResources().getColor(R.color.colorWaiting) );
                     break;
                 case 1:
@@ -59,7 +59,6 @@ public class BattlesActivity extends AppCompatActivity {
 
             battleScore.setText(score[i]);
 
-            //battle_item.getLayoutParams().width = LayoutParams.MATCH_PARENT;
             linLayout.addView(battle_item);
         }
 
