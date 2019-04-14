@@ -9,13 +9,31 @@ import android.widget.TextView;
 
 public class BattlesActivity extends AppCompatActivity {
 
-    private String[] name = { "Иван", "Марья", "Петр", "Антон", "Даша", "Борис", "Костя", "Игорь" };
-    private String[] date = {"22/1/56", "34/23/542", "03/53/345", "22/1/56", "34/23/542",
-                            "03/53/345", "22/1/56", "34/23/542"};
-    private String[] subject = {"Math", "История", "Укрмова", "География", "Физика",
-                                "Информатика", "Английский", "Биология"};
-    private byte[] state = {0, 3, 1, 2, 3, 1, 1, 2 };
-    private String[] score = {"4:2", "3:2", "2:0", "5:1", "4:4", "3:1", "1:2", "3:2"};
+    private String[] name = {
+            "Иван", "Марья", "Петр", "Антон", "Даша",
+            "Борис", "Костя", "Игорь", "Иван", "Марья",
+            "Петр", "Антон", "Даша", "Борис", "Костя"
+    };
+    private String[] date = {
+            "22/1/56", "34/23/542", "03/53/345", "22/1/56", "34/23/542",
+            "03/53/345", "22/1/56", "34/23/542", "22/1/56", "34/23/542",
+            "03/53/345", "22/1/56", "34/23/542", "03/53/345", "22/1/56"
+    };
+    private String[] subject = {
+            "Math", "История", "Укрмова", "География", "Физика",
+            "Информатика", "Английский", "Биология", "Math", "История",
+            "Укрмова", "География", "Физика", "Информатика", "Английский"
+    };
+    private byte[] state = {
+            0, 3, 1, 2, 3,
+            1, 1, 2, 3, 0,
+            3, 1, 2, 3, 1
+    };
+    private String[] score = {
+            "4:2", "3:2", "2:0", "5:1", "4:4",
+            "3:1", "1:2", "3:2", "4:2", "3:2",
+            "2:0", "5:1", "4:4", "3:1", "1:2"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +43,11 @@ public class BattlesActivity extends AppCompatActivity {
         LinearLayout linLayout = (LinearLayout) findViewById(R.id.linLayout);
 
         LayoutInflater ltInflater = getLayoutInflater();
+
+        int colorWaiting = getResources().getColor(R.color.colorWaiting);
+        int colorWin = getResources().getColor(R.color.colorWin);
+        int colorDefeat = getResources().getColor(R.color.colorDefeat);
+        int colorDraw = getResources().getColor(R.color.colorDraw);
 
         for (int i = 0; i < name.length; i++) {
             View battle_item = ltInflater.inflate(R.layout.battle_item, linLayout, false);
@@ -41,19 +64,19 @@ public class BattlesActivity extends AppCompatActivity {
             switch (state[i]) {
                 case 0:
                     battleState.setText("Ожидание");
-                    battleState.setBackgroundColor( getResources().getColor(R.color.colorWaiting) );
+                    battleState.setBackgroundColor(colorWaiting);
                     break;
                 case 1:
                     battleState.setText("Победа");
-                    battleState.setBackgroundColor( getResources().getColor(R.color.colorWin));
+                    battleState.setBackgroundColor(colorWin);
                     break;
                 case 2:
                     battleState.setText("Поражение");
-                    battleState.setBackgroundColor( getResources().getColor(R.color.colorDefeat) );
+                    battleState.setBackgroundColor(colorDefeat);
                     break;
                 case 3:
                     battleState.setText("Ничья");
-                    battleState.setBackgroundColor( getResources().getColor(R.color.colorDraw) );
+                    battleState.setBackgroundColor(colorDraw);
                     break;
             }
 
