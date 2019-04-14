@@ -3,4 +3,10 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <!-- Game state -->
+    <color name="colorWaiting">#7E7E7E</color>
+    <color name="colorWin">#3ED81B</color>
+    <color name="colorDefeat">#D81B1B</color>
+    <color name="colorDraw">#E4A60D</color>
 </resources>

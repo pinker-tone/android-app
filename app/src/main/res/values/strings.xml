@@ -1,9 +1,5 @@
 <resources>
     <string name="app_name">pinkerCardsMVP</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_profile">Profile</string>
     <string name="enterSign">Вход</string>
     <string name="registrationSign">Регистрация</string>
     <string name="registrationGoto">Регистрация</string>
@@ -16,8 +12,4 @@
     <string name="emailHint">E-mail</string>
     <string name="loginHint">Имя пользователя</string>
     <string name="title_activity_battles">BattlesActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

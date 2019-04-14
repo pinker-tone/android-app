@@ -12,7 +12,7 @@
         <activity
             android:name=".BattlesActivity"
             android:label="@string/title_activity_battles"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".BattleResultsActivity" />
         <activity android:name=".signUpActivity" />
         <activity android:name=".LoginActivity" />
