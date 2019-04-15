@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".BattleActivity"
     android:weightSum="2"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background">
 
 
     <LinearLayout
@@ -40,15 +41,19 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:layout_gravity="center_horizontal|top">
-        <Button
-            android:background="@drawable/button_yes"
-            style="@style/YesNoBtnStyle"
-            android:text="Да"/>
 
         <Button
-            android:background="@drawable/button_no"
+            android:id="@+id/yesBtn"
             style="@style/YesNoBtnStyle"
-            android:text="Нет"/>
+            android:background="@drawable/button_yes"
+            android:onClick="splashRight"
+            android:text="Да" />
+
+        <Button
+            style="@style/YesNoBtnStyle"
+            android:background="@drawable/button_no"
+            android:onClick="splashWrong"
+            android:text="Нет" />
     </LinearLayout>
 
 

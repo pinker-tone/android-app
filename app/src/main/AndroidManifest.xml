@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BattleActivity"></activity>
+        <activity android:name=".EnemiesActivity"></activity>
+        <activity android:name=".BattleActivity" />
         <activity
             android:name=".BattlesActivity"
             android:label="@string/title_activity_battles"
