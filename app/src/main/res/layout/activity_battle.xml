@@ -18,7 +18,6 @@
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
-        android:layout_weight="1"
         android:layout_gravity="center_vertical"
         android:layout_width="300dp"
         android:layout_height="300dp"
@@ -28,10 +27,10 @@
             android:id="@+id/info_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Карточка на кота Василия"
+            android:text="Этот вопрос содержит два ответа"
             android:gravity="center"
             android:textSize="36sp"
-            android:background="#faf"/>
+            android:background="@drawable/card_battle"/>
     </android.support.v7.widget.CardView>
     </LinearLayout>
 
@@ -40,15 +39,15 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal|top">
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:background="@drawable/button_yes"
+            style="@style/YesNoBtnStyle"
             android:text="Да"/>
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:background="@drawable/button_no"
+            style="@style/YesNoBtnStyle"
             android:text="Нет"/>
     </LinearLayout>
 

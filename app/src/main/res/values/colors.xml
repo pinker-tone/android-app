@@ -7,7 +7,7 @@
     <!-- Game state -->
     <color name="colorWaiting">#B8B8B8</color>
     <color name="colorWin">#3ED81B</color>
-    <color name="colorDefeat">#D81B1B</color>
+    <color name="colorDefeat">#FA1D1D</color>
     <color name="colorDraw">#E4CF0D</color>
 
     <color name="cardBG">#FAE01B</color>
