@@ -37,4 +37,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, BattleActivity.class);
         startActivity(intent);
     }
+
+    public void jumpToEnemies(View view) {
+        Intent intent = new Intent(MainActivity.this, EnemiesActivity.class);
+        startActivity(intent);
+    }
 }

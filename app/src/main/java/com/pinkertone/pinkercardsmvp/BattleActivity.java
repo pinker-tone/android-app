@@ -4,7 +4,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 public class BattleActivity extends AppCompatActivity {
 
@@ -13,15 +12,6 @@ public class BattleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
     }
-
-//    FloatingActionButton fab = findViewById(R.id.fab);
-//fab.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View view) {
-//            Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show();
-//        }
-//    });
 
     public void splashRight(View view){
         Snackbar.make(view, "А ты шаришь", Snackbar.LENGTH_LONG)

@@ -9,27 +9,27 @@ import android.widget.TextView;
 
 public class BattlesActivity extends AppCompatActivity {
 
-    private String[] name = {
+    private final String[] name = {
             "Иван", "Марья", "Петр", "Антон", "Даша",
             "Борис", "Костя", "Игорь", "Иван", "Марья",
             "Петр", "Антон", "Даша", "Борис", "Костя"
     };
-    private String[] date = {
+    private final String[] date = {
             "22/1/56", "34/23/542", "03/53/345", "22/1/56", "34/23/542",
             "03/53/345", "22/1/56", "34/23/542", "22/1/56", "34/23/542",
             "03/53/345", "22/1/56", "34/23/542", "03/53/345", "22/1/56"
     };
-    private String[] subject = {
+    private final String[] subject = {
             "Math", "История", "Укрмова", "География", "Физика",
             "Информатика", "Английский", "Биология", "Math", "История",
             "Укрмова", "География", "Физика", "Информатика", "Английский"
     };
-    private byte[] state = {
+    private final byte[] state = {
             0, 3, 1, 2, 3,
             1, 1, 2, 3, 0,
             3, 1, 2, 3, 1
     };
-    private String[] score = {
+    private final String[] score = {
             "4:2", "3:2", "2:0", "5:1", "4:4",
             "3:1", "1:2", "3:2", "4:2", "3:2",
             "2:0", "5:1", "4:4", "3:1", "1:2"
