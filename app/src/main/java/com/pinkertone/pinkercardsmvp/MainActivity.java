@@ -32,4 +32,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, BattlesActivity.class);
         startActivity(intent);
     }
+
+    public void jumpToBattle(View view) {
+        Intent intent = new Intent(MainActivity.this, BattleActivity.class);
+        startActivity(intent);
+    }
 }
