@@ -16,5 +16,6 @@ public class LoginActivity extends AppCompatActivity {
     public void jumpToSignUp(View view) {
         Intent intent = new Intent(LoginActivity.this, signUpActivity.class);
         startActivity(intent);
+        finish();
     }
 }
