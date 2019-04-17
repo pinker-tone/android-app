@@ -12,7 +12,7 @@ public class EnemiesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enemies);
 
-        ListView listView = (ListView)findViewById(R.id.listView);
+        ListView listView = (ListView)findViewById(R.id.enemiesLV);
 
         final String[] catNames = new String[] {
                 "Рыжик", "Барсик", "Мурзик", "Мурка", "Васька",

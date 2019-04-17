@@ -45,14 +45,14 @@
             android:id="@+id/yesBtn"
             style="@style/YesNoBtnStyle"
             android:background="@drawable/button_yes"
-            android:onClick="answerNo"
+            android:onClick="answerYes"
             android:text="Да" />
 
         <Button
             android:id="@+id/noBtn"
             style="@style/YesNoBtnStyle"
             android:background="@drawable/button_no"
-            android:onClick="answerYes"
+            android:onClick="answerNo"
             android:text="Нет" />
     </LinearLayout>
 
