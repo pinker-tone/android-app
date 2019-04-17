@@ -55,6 +55,12 @@
             android:hint="@string/passwordHint"
             android:inputType="textPassword" />
 
+        <TextView
+            android:id="@+id/login_error"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/enterLoginBtn"
             android:layout_width="wrap_content"
@@ -62,7 +68,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="8dp"
-            android:text="@string/enterBtn" />
+            android:text="@string/enterBtn"
+            android:onClick="enter"/>
     </LinearLayout>
 
     <TextView
