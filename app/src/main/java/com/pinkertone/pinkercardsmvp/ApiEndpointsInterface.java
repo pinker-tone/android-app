@@ -19,6 +19,5 @@ public interface ApiEndpointsInterface {
 
     @FormUrlEncoded
     @POST("auth/token/login/")
-    Call<LogToken> logToken(@Field("username") String username,
-                                       @Field("password") String password);
+    Call<LogToken> logToken(@Field("username") String username, @Field("password") String password);
 }

@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LogToken> call, Throwable t) {
-
+                // nothing
             }
         });
     }
