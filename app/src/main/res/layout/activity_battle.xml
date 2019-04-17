@@ -24,7 +24,7 @@
         card_view:cardCornerRadius="4dp">
 
         <TextView
-            android:id="@+id/info_text"
+            android:id="@+id/questionTV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Этот вопрос содержит два ответа"
@@ -45,13 +45,14 @@
             android:id="@+id/yesBtn"
             style="@style/YesNoBtnStyle"
             android:background="@drawable/button_yes"
-            android:onClick="splashRight"
+            android:onClick="answerNo"
             android:text="Да" />
 
         <Button
+            android:id="@+id/noBtn"
             style="@style/YesNoBtnStyle"
             android:background="@drawable/button_no"
-            android:onClick="splashWrong"
+            android:onClick="answerYes"
             android:text="Нет" />
     </LinearLayout>
 
