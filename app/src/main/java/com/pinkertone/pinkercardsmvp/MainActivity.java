@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 "Стиви Джобс умер в 2007",
                 "У матросов есть вопросы?"
         };
-        boolean[] answersArray = {false, true, true, false, false};
+        boolean[] answersArray = {true, true, true, true, true};
         intent.putExtra("questions", questionsArray);
         intent.putExtra("rightAnswers", answersArray);
         //Intent intent = new Intent(MainActivity.this, BattleActivity.class);

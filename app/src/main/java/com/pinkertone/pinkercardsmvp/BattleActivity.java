@@ -1,5 +1,6 @@
 package com.pinkertone.pinkercardsmvp;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +13,7 @@ import java.util.List;
 public class BattleActivity extends AppCompatActivity {
 
     private byte questionNumber = 0;
-   // private boolean[] rightAnswers;
+    private boolean[] rightAnswers;
     private List<Boolean> userAnswers;
     private TextView questionsTV;
     public String[] questions;
@@ -24,13 +25,13 @@ public class BattleActivity extends AppCompatActivity {
         Bundle arguments = getIntent().getExtras();
         assert arguments != null;
 
-        userAnswers = new ArrayList<Boolean>(5);
+        userAnswers = new ArrayList(5);
         questionsTV = findViewById(R.id.questionTV);
 
         questions = arguments.getStringArray("questions");
 
         questions = arguments.getStringArray("questions");
-        //rightAnswers = arguments.getBooleanArray("rightAnswers");
+        rightAnswers = arguments.getBooleanArray("rightAnswers");
         assert questions != null;
         questionsTV.setText(questions[questionNumber]);
         questionNumber++;
@@ -47,27 +48,44 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     public void answerYes(View view){
-        if (questionNumber != 5) {
+        if (questionNumber < 5) {
             splashRight(view);
             userAnswers.add(true);
             nextQuestion();
         } else {
-            questionsTV.setText("No");
+            gotoBattleResultsActivity();
         }
     }
 
     public void answerNo(View view){
-        if (questionNumber != 5) {
+        if (questionNumber < 5) {
             splashWrong(view);
             userAnswers.add(false);
             nextQuestion();
         } else {
-            questionsTV.setText("Вот и сказочке конец");
+            gotoBattleResultsActivity();
         }
     }
 
     private void nextQuestion(){
         questionsTV.setText(questions[questionNumber]);
         questionNumber++;
+    }
+
+    private byte calculateRightAnswers(){
+        byte rightAnswersNum = 0;
+        for (byte i = 0; i < 4; i++){
+            if (userAnswers.get(i) == rightAnswers[i]){
+                rightAnswersNum++;
+            }
+        }
+        return rightAnswersNum;
+    }
+
+    public void gotoBattleResultsActivity(){
+        Intent intent = new Intent(this, BattleResultsActivity.class);
+        intent.putExtra("rightAnswersNum", calculateRightAnswers());
+        startActivity(intent);
+        finish();
     }
 }
