@@ -37,15 +37,24 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sPref = getPreferences(MODE_PRIVATE);
+        sPref = getSharedPreferences("AuthData", MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ed = sPref.edit();
         login_error = findViewById(R.id.login_error);
+        if (!sPref.getString(TOKEN, "").equals("") && !sPref.getString("username", "").equals("")){
+            jumpToBattles();
+        }
     }
 
     public void jumpToSignUp(View view) {
         Intent intent = new Intent(LoginActivity.this, signUpActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void jumpToBattles() {
+        Intent intent = new Intent(LoginActivity.this, BattlesActivity.class);
         startActivity(intent);
         finish();
     }
@@ -61,9 +70,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void getToken(String username, String password){
+    public void getToken(final String username, String password){
         Call<LogToken> call = Singleton.getInstance().apiService.logToken(username, password);
-        LogToken token;
         call.enqueue(new Callback<LogToken>() {
             @Override
             public void onResponse(Call<LogToken> call, Response<LogToken> response) {
@@ -71,7 +79,9 @@ public class LoginActivity extends AppCompatActivity {
                     int statusCode = response.code();
                     LogToken token = response.body();
                     ed.putString(TOKEN, token.authToken);
+                    ed.putString("username", username);
                     ed.commit();
+                    jumpToBattles();
                 }
                 else {
                     login_error.setVisibility(View.VISIBLE);

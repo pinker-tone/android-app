@@ -1,5 +1,7 @@
 package com.pinkertone.pinkercardsmvp;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,83 +9,161 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.pinkertone.pinkercardsmvp.model.Game;
+import com.pinkertone.pinkercardsmvp.model.LogToken;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class BattlesActivity extends AppCompatActivity {
 
-    private final String[] name = {
-            "Иван", "Марья", "Петр", "Антон", "Даша",
-            "Борис", "Костя", "Игорь", "Иван", "Марья",
-            "Петр", "Антон", "Даша", "Борис", "Костя"
-    };
-    private final String[] date = {
-            "22/1/56", "34/23/542", "03/53/345", "22/1/56", "34/23/542",
-            "03/53/345", "22/1/56", "34/23/542", "22/1/56", "34/23/542",
-            "03/53/345", "22/1/56", "34/23/542", "03/53/345", "22/1/56"
-    };
-    private final String[] subject = {
-            "Math", "История", "Укрмова", "География", "Физика",
-            "Информатика", "Английский", "Биология", "Math", "История",
-            "Укрмова", "География", "Физика", "Информатика", "Английский"
-    };
-    private final byte[] state = {
-            0, 3, 1, 2, 3,
-            1, 1, 2, 3, 0,
-            3, 1, 2, 3, 1
-    };
-    private final String[] score = {
-            "4:2", "3:2", "2:0", "5:1", "4:4",
-            "3:1", "1:2", "3:2", "4:2", "3:2",
-            "2:0", "5:1", "4:4", "3:1", "1:2"
-    };
+    SharedPreferences sPref;
+    SharedPreferences.Editor ed;
+    final String TOKEN = "Token";
+    int colorWaiting;
+    int colorWin;
+    int colorDefeat;
+    int colorDraw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        colorWaiting = getResources().getColor(R.color.colorWaiting);
+        colorWin = getResources().getColor(R.color.colorWin);
+        colorDefeat = getResources().getColor(R.color.colorDefeat);
+        colorDraw = getResources().getColor(R.color.colorDraw);
+
+        sPref = getSharedPreferences("AuthData", MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battles);
 
-        LinearLayout linLayout = (LinearLayout) findViewById(R.id.linLayout);
-
-        LayoutInflater ltInflater = getLayoutInflater();
-
-        int colorWaiting = getResources().getColor(R.color.colorWaiting);
-        int colorWin = getResources().getColor(R.color.colorWin);
-        int colorDefeat = getResources().getColor(R.color.colorDefeat);
-        int colorDraw = getResources().getColor(R.color.colorDraw);
-
-        for (int i = 0; i < name.length; i++) {
-            View battle_item = ltInflater.inflate(R.layout.battle_item, linLayout, false);
-
-            TextView enemyName = (TextView) battle_item.findViewById(R.id.enemyName);
-            enemyName.setText(name[i]);
-            TextView battleDate = (TextView) battle_item.findViewById(R.id.battleDate);
-            battleDate.setText(date[i]);
-            TextView subjectName = (TextView) battle_item.findViewById(R.id.subjectName);
-            subjectName.setText(subject[i]);
-            TextView battleState = (TextView) battle_item.findViewById(R.id.battleState);
-            TextView battleScore = (TextView) battle_item.findViewById(R.id.battleScore);
-
-            switch (state[i]) {
-                case 0:
-                    battleState.setText("Ожидание");
-                    battleState.setBackgroundColor(colorWaiting);
-                    break;
-                case 1:
-                    battleState.setText("Победа");
-                    battleState.setBackgroundColor(colorWin);
-                    break;
-                case 2:
-                    battleState.setText("Поражение");
-                    battleState.setBackgroundColor(colorDefeat);
-                    break;
-                case 3:
-                    battleState.setText("Ничья");
-                    battleState.setBackgroundColor(colorDraw);
-                    break;
-            }
-
-            battleScore.setText(score[i]);
-
-            linLayout.addView(battle_item);
+        String token = sPref.getString(TOKEN, "");
+        System.out.println("1 "+ token);
+        if (token == ""){
+            Intent intent = new Intent(BattlesActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
 
+        Call<ArrayList<Game>> call = Singleton.getInstance().apiService.getGames(TOKEN + " " +token);
+
+        call.enqueue(new Callback<ArrayList<Game>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Game>> call, Response<ArrayList<Game>> response) {
+                if (response.isSuccessful()){
+
+                    LinearLayout linLayout = findViewById(R.id.linLayout);
+
+                    LayoutInflater ltInflater = getLayoutInflater();
+
+                    for (Game game: response.body()) {
+                        View battle_item = ltInflater.inflate(R.layout.battle_item, linLayout, false);
+
+                        TextView enemyName = battle_item.findViewById(R.id.enemyName);
+                        if (game.user1.username.equals(sPref.getString("username", ""))){
+                            enemyName.setText(game.user2.username);
+                        }
+                        else {
+                            enemyName.setText(game.user1.username);
+                        }
+
+                        String date = game.date.substring(11, 19) + " " + game.date.substring(8, 10) + "/" + game.date.substring(5, 7);
+                        TextView battleDate = battle_item.findViewById(R.id.battleDate);
+                        battleDate.setText(date);
+
+                        TextView subjectName = battle_item.findViewById(R.id.subjectName);
+                        subjectName.setText("История");
+
+                        TextView battleState = battle_item.findViewById(R.id.battleState);
+                        TextView battleScore = battle_item.findViewById(R.id.battleScore);
+
+                        switch (game.status) {
+                            case "WAITING":
+                                battleState.setText("Ожидание");
+                                battleState.setBackgroundColor(colorWaiting);
+                                battleScore.setVisibility(View.GONE);
+                                break;
+                            case "ENDED":
+                                if (!game.draw) {
+                                    if (game.winner.username.equals(sPref.getString("username", ""))) {
+                                        battleState.setText("Победа");
+                                        battleState.setBackgroundColor(colorWin);
+                                    }
+                                    else {
+                                        battleState.setText("Поражение");
+                                        battleState.setBackgroundColor(colorDefeat);
+                                    }
+                                }
+                                else {
+                                    battleState.setText("Ничья");
+                                    battleState.setBackgroundColor(colorDraw);
+                                }
+                                if (game.user1.username.equals(sPref.getString("username", ""))) {
+                                    battleScore.setText(game.answersCorrectUser1 + ":" + game.answersCorrectUser2);
+                                }
+                                else {
+                                    battleScore.setText(game.answersCorrectUser2 + ":" + game.answersCorrectUser1);
+                                }
+                        }
+
+                        linLayout.addView(battle_item);
+                    }
+                }
+                else {
+                    System.out.println(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Game>> call, Throwable t) {
+                // nothing
+            }
+        });
+
+//        LinearLayout linLayout = (LinearLayout) findViewById(R.id.linLayout);
+//
+//        LayoutInflater ltInflater = getLayoutInflater();
+//
+//
+//
+//
+//        for (int i = 0; i < name.length; i++) {
+//            View battle_item = ltInflater.inflate(R.layout.battle_item, linLayout, false);
+//
+//            TextView enemyName = (TextView) battle_item.findViewById(R.id.enemyName);
+//            enemyName.setText(name[i]);
+//            TextView battleDate = (TextView) battle_item.findViewById(R.id.battleDate);
+//            battleDate.setText(date[i]);
+//            TextView subjectName = (TextView) battle_item.findViewById(R.id.subjectName);
+//            subjectName.setText(subject[i]);
+//            TextView battleState = (TextView) battle_item.findViewById(R.id.battleState);
+//            TextView battleScore = (TextView) battle_item.findViewById(R.id.battleScore);
+//
+//            switch (state[i]) {
+//                case 0:
+//                    battleState.setText("Ожидание");
+//                    battleState.setBackgroundColor(colorWaiting);
+//                    break;
+//                case 1:
+//                    battleState.setText("Победа");
+//                    battleState.setBackgroundColor(colorWin);
+//                    break;
+//                case 2:
+//                    battleState.setText("Поражение");
+//                    battleState.setBackgroundColor(colorDefeat);
+//                    break;
+//                case 3:
+//                    battleState.setText("Ничья");
+//                    battleState.setBackgroundColor(colorDraw);
+//                    break;
+//            }
+//
+//            battleScore.setText(score[i]);
+//
+//            linLayout.addView(battle_item);
     }
+
 }
+

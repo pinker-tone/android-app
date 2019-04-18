@@ -41,7 +41,7 @@
 
         <TextView
             android:id="@+id/battleState"
-            android:layout_width="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginEnd="3dp"
             android:layout_weight="2"
