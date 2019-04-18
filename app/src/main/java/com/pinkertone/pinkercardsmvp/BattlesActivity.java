@@ -119,48 +119,6 @@ public class BattlesActivity extends AppCompatActivity {
                 // nothing
             }
         });
-
-//        LinearLayout linLayout = (LinearLayout) findViewById(R.id.linLayout);
-//
-//        LayoutInflater ltInflater = getLayoutInflater();
-//
-//
-//
-//
-//        for (int i = 0; i < name.length; i++) {
-//            View battle_item = ltInflater.inflate(R.layout.battle_item, linLayout, false);
-//
-//            TextView enemyName = (TextView) battle_item.findViewById(R.id.enemyName);
-//            enemyName.setText(name[i]);
-//            TextView battleDate = (TextView) battle_item.findViewById(R.id.battleDate);
-//            battleDate.setText(date[i]);
-//            TextView subjectName = (TextView) battle_item.findViewById(R.id.subjectName);
-//            subjectName.setText(subject[i]);
-//            TextView battleState = (TextView) battle_item.findViewById(R.id.battleState);
-//            TextView battleScore = (TextView) battle_item.findViewById(R.id.battleScore);
-//
-//            switch (state[i]) {
-//                case 0:
-//                    battleState.setText("Ожидание");
-//                    battleState.setBackgroundColor(colorWaiting);
-//                    break;
-//                case 1:
-//                    battleState.setText("Победа");
-//                    battleState.setBackgroundColor(colorWin);
-//                    break;
-//                case 2:
-//                    battleState.setText("Поражение");
-//                    battleState.setBackgroundColor(colorDefeat);
-//                    break;
-//                case 3:
-//                    battleState.setText("Ничья");
-//                    battleState.setBackgroundColor(colorDraw);
-//                    break;
-//            }
-//
-//            battleScore.setText(score[i]);
-//
-//            linLayout.addView(battle_item);
     }
 
 }

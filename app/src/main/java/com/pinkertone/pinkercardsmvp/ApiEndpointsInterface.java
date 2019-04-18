@@ -2,6 +2,7 @@ package com.pinkertone.pinkercardsmvp;
 
 import com.pinkertone.pinkercardsmvp.model.LogToken;
 import com.pinkertone.pinkercardsmvp.model.Game;
+import com.pinkertone.pinkercardsmvp.model.StandartAnswer;
 import com.pinkertone.pinkercardsmvp.model.User;
 
 import java.util.ArrayList;
@@ -12,12 +13,12 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Header;
+import retrofit2.http.Path;
 
 public interface ApiEndpointsInterface {
 
     @GET("api/v1/games/")
     Call<ArrayList<Game>> getGames(@Header("Authorization") String token);
-
 
     @FormUrlEncoded
     @POST("auth/token/login/")
@@ -25,4 +26,15 @@ public interface ApiEndpointsInterface {
 
     @GET("api/v1/users/")
     Call<ArrayList<User>> getUsers(@Header("Authorization") String token);
+
+    @FormUrlEncoded
+    @POST("api/v1/games/create/")
+    Call<ArrayList<Game>> createGame(@Header("Authorization") String token, @Field("opponent") String opponent);
+
+    @GET("api/v1/games/{id}/")
+    Call<ArrayList<Game>> getCertainGame(@Header("Authorization") String token, @Path("id") int id);
+
+    @FormUrlEncoded
+    @POST("api/v1/games/answer/")
+    Call<StandartAnswer> sendAnswer(@Header("Authorization") String token, @Field("game_id") int id, @Field("correct_answers") int correct_answers);
 }

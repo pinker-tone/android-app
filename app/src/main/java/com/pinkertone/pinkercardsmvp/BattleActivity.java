@@ -17,14 +17,15 @@ public class BattleActivity extends AppCompatActivity {
     private List<Boolean> userAnswers;
     private TextView questionsTV;
     public String[] questions;
-
+    private byte correctAnswers = 0;
+    private int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
         Bundle arguments = getIntent().getExtras();
         assert arguments != null;
-
+        id = arguments.getInt("game_id");
         userAnswers = new ArrayList(5);
         questionsTV = findViewById(R.id.questionTV);
 
@@ -48,9 +49,12 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     public void answerYes(View view){
+        splashRight(view);
+        if (rightAnswers[questionNumber-1] == true){
+            this.correctAnswers++;
+            System.out.println(correctAnswers);
+        }
         if (questionNumber < 5) {
-            splashRight(view);
-            userAnswers.add(true);
             nextQuestion();
         } else {
             gotoBattleResultsActivity();
@@ -58,9 +62,11 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     public void answerNo(View view){
+        splashWrong(view);
+        if (rightAnswers[questionNumber-1] == false){
+            this.correctAnswers++;
+        }
         if (questionNumber < 5) {
-            splashWrong(view);
-            userAnswers.add(false);
             nextQuestion();
         } else {
             gotoBattleResultsActivity();
@@ -72,19 +78,11 @@ public class BattleActivity extends AppCompatActivity {
         questionNumber++;
     }
 
-    private byte calculateRightAnswers(){
-        byte rightAnswersNum = 0;
-        for (byte i = 0; i < 4; i++){
-            if (userAnswers.get(i) == rightAnswers[i]){
-                rightAnswersNum++;
-            }
-        }
-        return rightAnswersNum;
-    }
-
     public void gotoBattleResultsActivity(){
+        System.out.println(correctAnswers);
         Intent intent = new Intent(this, BattleResultsActivity.class);
-        intent.putExtra("rightAnswersNum", calculateRightAnswers());
+        intent.putExtra("rightAnswersNum", correctAnswers);
+        intent.putExtra("game_id", id);
         startActivity(intent);
         finish();
     }

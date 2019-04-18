@@ -5,10 +5,12 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.pinkertone.pinkercardsmvp.model.LogToken;
+import com.pinkertone.pinkercardsmvp.model.Game;
 import com.pinkertone.pinkercardsmvp.model.User;
 
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class EnemiesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enemies);
         sPref = getSharedPreferences("AuthData", MODE_PRIVATE);
-        String token = sPref.getString(TOKEN, "");
+        final String token = sPref.getString(TOKEN, "");
         if (token == ""){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -47,14 +49,15 @@ public class EnemiesActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<ArrayList<User>>() {
             @Override
-            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+            public void onResponse(final Call<ArrayList<User>> call, final Response<ArrayList<User>> response) {
                 if (response.isSuccessful()){
                     String[] enemyNames = new String[response.body().size()-1];
+                    int minus = 0;
                     for (int i = 0; i < response.body().size(); i++){
                         User user = response.body().get(i);
-                        if (!user.username.equals(sPref.getString("username", ""))) {
-                            enemyNames[i] = user.username;
-                        }
+                        if (!user.username.equals(sPref.getString("username", "")))
+                            enemyNames[i-minus] = user.username;
+                        else minus++;
                     }
 
 
@@ -63,9 +66,47 @@ public class EnemiesActivity extends AppCompatActivity {
                             android.R.layout.simple_list_item_1, enemyNames);
 
                     listView.setAdapter(adapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            TextView list_element = (TextView) view;
 
-                }
-                else {
+                            Call<ArrayList<Game>>call = Singleton.getInstance().apiService.createGame(TOKEN + " " + token,
+                                    list_element.getText().toString());
+                            call.enqueue(new Callback<ArrayList<Game>>() {
+                                @Override
+                                public void onResponse(final Call<ArrayList<Game>> call, final Response<ArrayList<Game>> response) {
+                                    if (response.isSuccessful()){
+                                        Game game = response.body().get(0);
+                                        String[] questionsArray = new String[5];
+                                        boolean[] answersArray = new boolean[5];
+                                        for (int i = 0; i < 5; i++){
+                                            questionsArray[i] = game.questions.get(i).questionText;
+                                            switch (game.questions.get(i).answer) {
+                                                case "Yes":
+                                                    answersArray[i] = true;
+                                                    break;
+                                                case "No":
+                                                    answersArray[i] = false;
+                                                    break;
+                                            }
+                                        }
+                                        Intent intent = new Intent(EnemiesActivity.this, BattleActivity.class);
+                                        intent.putExtra("questions", questionsArray);
+                                        intent.putExtra("rightAnswers", answersArray);
+                                        intent.putExtra("game_id", game.id);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ArrayList<Game>> call, Throwable t) {
+                                    // nothing
+                                }
+                            });
+                        }
+                    });
 
                 }
             }
