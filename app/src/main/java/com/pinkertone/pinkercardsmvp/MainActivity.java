@@ -3,7 +3,12 @@ package com.pinkertone.pinkercardsmvp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,11 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void jumpToSignUp(View view) {
         Intent intent = new Intent(MainActivity.this, signUpActivity.class);
-        startActivity(intent);
-    }
-
-    public void jumpToBattleResults(View view) {
-        Intent intent = new Intent(MainActivity.this, BattleResultsActivity.class);
         startActivity(intent);
     }
 
