@@ -21,7 +21,6 @@ import retrofit2.Response;
 public class BattlesActivity extends AppCompatActivity {
 
     SharedPreferences sPref;
-    SharedPreferences.Editor ed;
     final String TOKEN = "Token";
     int colorWaiting;
     int colorWin;
@@ -40,7 +39,6 @@ public class BattlesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_battles);
 
         String token = sPref.getString(TOKEN, "");
-        System.out.println("1 "+ token);
         if (token == ""){
             Intent intent = new Intent(BattlesActivity.this, LoginActivity.class);
             startActivity(intent);

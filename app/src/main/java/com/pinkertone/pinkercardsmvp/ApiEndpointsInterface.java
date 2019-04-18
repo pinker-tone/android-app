@@ -2,6 +2,8 @@ package com.pinkertone.pinkercardsmvp;
 
 import com.pinkertone.pinkercardsmvp.model.LogToken;
 import com.pinkertone.pinkercardsmvp.model.Game;
+import com.pinkertone.pinkercardsmvp.model.User;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -20,4 +22,7 @@ public interface ApiEndpointsInterface {
     @FormUrlEncoded
     @POST("auth/token/login/")
     Call<LogToken> logToken(@Field("username") String username, @Field("password") String password);
+
+    @GET("api/v1/users/")
+    Call<ArrayList<User>> getUsers(@Header("Authorization") String token);
 }

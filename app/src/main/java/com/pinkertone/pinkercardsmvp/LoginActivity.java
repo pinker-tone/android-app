@@ -76,7 +76,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LogToken> call, Response<LogToken> response) {
                 if (response.isSuccessful()){
-                    int statusCode = response.code();
                     LogToken token = response.body();
                     ed.putString(TOKEN, token.authToken);
                     ed.putString("username", username);
