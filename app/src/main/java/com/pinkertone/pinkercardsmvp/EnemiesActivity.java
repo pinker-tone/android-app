@@ -21,12 +21,6 @@ import retrofit2.Response;
 
 public class EnemiesActivity extends AppCompatActivity {
 
-//    final String[] catNames = new String[] {
-//            "Рыжик", "Барсик", "Мурзик", "Мурка", "Васька",
-//            "Томасина", "Кристина", "Пушок", "Дымка", "Кузя",
-//            "Китти", "Масяня", "Симба"
-//    };
-
     SharedPreferences sPref;
     final String TOKEN = "Token";
 

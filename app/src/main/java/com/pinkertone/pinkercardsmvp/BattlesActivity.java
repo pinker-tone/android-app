@@ -13,6 +13,7 @@ import com.pinkertone.pinkercardsmvp.model.Game;
 import com.pinkertone.pinkercardsmvp.model.LogToken;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,19 +45,22 @@ public class BattlesActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
         Call<ArrayList<Game>> call = Singleton.getInstance().apiService.getGames(TOKEN + " " +token);
 
         call.enqueue(new Callback<ArrayList<Game>>() {
             @Override
             public void onResponse(Call<ArrayList<Game>> call, Response<ArrayList<Game>> response) {
                 if (response.isSuccessful()){
-
                     LinearLayout linLayout = findViewById(R.id.linLayout);
 
                     LayoutInflater ltInflater = getLayoutInflater();
 
-                    for (Game game: response.body()) {
+                    ArrayList<Game> game_list = new ArrayList(response.body().size());
+                    for (int i = 0; i < response.body().size(); i++)
+                        game_list.add(response.body().get(response.body().size()-(i+1)));
+
+                    for (Game game: game_list) {
+
                         View battle_item = ltInflater.inflate(R.layout.battle_item, linLayout, false);
 
                         TextView enemyName = battle_item.findViewById(R.id.enemyName);
