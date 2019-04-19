@@ -1,5 +1,6 @@
 package com.pinkertone.pinkercardsmvp;
 
+import com.pinkertone.pinkercardsmvp.model.CreateUser;
 import com.pinkertone.pinkercardsmvp.model.LogToken;
 import com.pinkertone.pinkercardsmvp.model.Game;
 import com.pinkertone.pinkercardsmvp.model.StandartAnswer;
@@ -37,4 +38,9 @@ public interface ApiEndpointsInterface {
     @FormUrlEncoded
     @POST("api/v1/games/answer/")
     Call<StandartAnswer> sendAnswer(@Header("Authorization") String token, @Field("game_id") int id, @Field("correct_answers") int correct_answers);
+
+    @FormUrlEncoded
+    @POST("auth/users/create/")
+    Call<CreateUser> createUser(@Field("username") String username, @Field("password") String password,
+                                @Field("email") String email);
 }

@@ -29,11 +29,11 @@
             android:text="Текущие бои"
             android:layout_gravity="center_horizontal">
         </TextView>
-        <ListView
-            android:id="@+id/battlesLV"
+        <LinearLayout
+            android:id="@+id/linLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-        </ListView>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

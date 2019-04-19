@@ -12,4 +12,7 @@
     <string name="emailHint">E-mail</string>
     <string name="loginHint">Имя пользователя</string>
     <string name="title_activity_battles">BattlesActivity</string>
+    <string name="password_dont_match_error">Пароли не совпадают</string>
+    <string name="something_went_wrong">Что-то пошло не так. \nВозможно пользователь с таким ником или почтой уже существует или ваш пароль слишком простой.</string>
+
 </resources>
