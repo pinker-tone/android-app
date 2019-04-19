@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pinkertone.pinkercardsmvp.model.Game;
@@ -51,62 +52,89 @@ public class BattlesActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<Game>> call, Response<ArrayList<Game>> response) {
                 if (response.isSuccessful()){
-                    LinearLayout linLayout = findViewById(R.id.linLayout);
+                    //ListView battlesLV = findViewById(R.id.battlesLV);
 
-                    LayoutInflater ltInflater = getLayoutInflater();
+                    //LayoutInflater ltInflater = getLayoutInflater();
 
-                    for (Game game: response.body()) {
+//                    for (Game game: response.body()) {
+//
+//                        View battle_item = ltInflater.inflate(R.layout.battle_item, battlesLV, false);
+//
+//                        TextView enemyName = battle_item.findViewById(R.id.enemyName);
+//                        if (game.user1.username.equals(sPref.getString("username", ""))){
+//                            enemyName.setText(game.user2.username);
+//                        } else {
+//                            enemyName.setText(game.user1.username);
+//                        }
+//
+//                        String date = game.date.substring(11, 19) + " " + game.date.substring(8, 10) + "/" + game.date.substring(5, 7);
+//                        TextView battleDate = battle_item.findViewById(R.id.battleDate);
+//                        battleDate.setText(date);
+//
+//                        TextView subjectName = battle_item.findViewById(R.id.subjectName);
+//                        subjectName.setText("История");
+//
+//                        TextView battleState = battle_item.findViewById(R.id.battleState);
+//                        TextView battleScore = battle_item.findViewById(R.id.battleScore);
+//
+//                        switch (game.status) {
+//                            case "WAITING":
+//                                battleState.setText("Ожидание");
+//                                battleState.setBackgroundColor(colorWaiting);
+//                                battleScore.setVisibility(View.GONE);
+//                                break;
+//                            case "ENDED":
+//                                if (!game.draw) {
+//                                    if (game.winner.username.equals(sPref.getString("username", ""))) {
+//                                        battleState.setText("Победа");
+//                                        battleState.setBackgroundColor(colorWin);
+//                                    }
+//                                    else {
+//                                        battleState.setText("Поражение");
+//                                        battleState.setBackgroundColor(colorDefeat);
+//                                    }
+//                                }
+//                                else {
+//                                    battleState.setText("Ничья");
+//                                    battleState.setBackgroundColor(colorDraw);
+//                                }
+//                                if (game.user1.username.equals(sPref.getString("username", ""))) {
+//                                    battleScore.setText(game.answersCorrectUser1 + ":" + game.answersCorrectUser2);
+//                                }
+//                                else {
+//                                    battleScore.setText(game.answersCorrectUser2 + ":" + game.answersCorrectUser1);
+//                                }
+//                        }
+//
+//                        battlesLV.addView(battle_item);
+//                    }
 
-                        View battle_item = ltInflater.inflate(R.layout.battle_item, linLayout, false);
 
-                        TextView enemyName = battle_item.findViewById(R.id.enemyName);
-                        if (game.user1.username.equals(sPref.getString("username", ""))){
-                            enemyName.setText(game.user2.username);
-                        }
-                        else {
-                            enemyName.setText(game.user1.username);
-                        }
+                    ArrayList<BattleItem> battleItems = new ArrayList<BattleItem>();
+                    BattlesAdapter battlesAdapter;
+                    fillData();
+                    battlesAdapter = new BattlesAdapter(BattlesActivity.this, battleItems);
 
-                        String date = game.date.substring(11, 19) + " " + game.date.substring(8, 10) + "/" + game.date.substring(5, 7);
-                        TextView battleDate = battle_item.findViewById(R.id.battleDate);
-                        battleDate.setText(date);
+                    ListView battlesLV = findViewById(R.id.battlesLV);
+                    battlesLV.setAdapter(battlesAdapter);
 
-                        TextView subjectName = battle_item.findViewById(R.id.subjectName);
-                        subjectName.setText("История");
+                    void fillData(){
+                        BattleItem i = new BattleItem();
+                        i.setBattleDate("Date");
+                        i.setBattleScore("4:3");
+                        i.setBattleState("Win");
+                        i.setEnemyName("Vitalia");
+                        i.setSubjectName("History");
 
-                        TextView battleState = battle_item.findViewById(R.id.battleState);
-                        TextView battleScore = battle_item.findViewById(R.id.battleScore);
+                        BattleItem j = new BattleItem();
+                        j.setBattleDate("2019/102/3");
+                        j.setBattleScore("1:3");
+                        j.setBattleState("Loose");
+                        j.setEnemyName("Misha");
+                        j.setSubjectName("History");
 
-                        switch (game.status) {
-                            case "WAITING":
-                                battleState.setText("Ожидание");
-                                battleState.setBackgroundColor(colorWaiting);
-                                battleScore.setVisibility(View.GONE);
-                                break;
-                            case "ENDED":
-                                if (!game.draw) {
-                                    if (game.winner.username.equals(sPref.getString("username", ""))) {
-                                        battleState.setText("Победа");
-                                        battleState.setBackgroundColor(colorWin);
-                                    }
-                                    else {
-                                        battleState.setText("Поражение");
-                                        battleState.setBackgroundColor(colorDefeat);
-                                    }
-                                }
-                                else {
-                                    battleState.setText("Ничья");
-                                    battleState.setBackgroundColor(colorDraw);
-                                }
-                                if (game.user1.username.equals(sPref.getString("username", ""))) {
-                                    battleScore.setText(game.answersCorrectUser1 + ":" + game.answersCorrectUser2);
-                                }
-                                else {
-                                    battleScore.setText(game.answersCorrectUser2 + ":" + game.answersCorrectUser1);
-                                }
-                        }
-
-                        linLayout.addView(battle_item);
+                        battleItems.add(i);
+                        battleItems.add(j);
                     }
                 }
                 else {
@@ -118,6 +146,8 @@ public class BattlesActivity extends AppCompatActivity {
             public void onFailure(Call<ArrayList<Game>> call, Throwable t) {
                 // nothing
             }
+
+
         });
     }
 
