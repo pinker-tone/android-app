@@ -41,14 +41,14 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    public void jumpToBattles(View view) {
-        Intent intent = new Intent(MainActivity.this, BattlesActivity.class);
-        startActivity(intent);
-        finish();
-    }
+//    public void jumpToBattles(View view) {
+//        Intent intent = new Intent(MainActivity.this, BattlesActivity.class);
+//        startActivity(intent);
+//        finish();
+//    }
 
-    public void jumpToEnemies(View view) {
-        Intent intent = new Intent(MainActivity.this, EnemiesActivity.class);
-        startActivity(intent);
-    }
+//    public void jumpToEnemies(View view) {
+//        Intent intent = new Intent(MainActivity.this, EnemiesActivity.class);
+//        startActivity(intent);
+//    }
 }

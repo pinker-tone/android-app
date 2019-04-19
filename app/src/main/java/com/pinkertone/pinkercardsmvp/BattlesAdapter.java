@@ -55,6 +55,24 @@ public class BattlesAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.battleDate)).setText(p.getBattleDate());
         ((TextView) view.findViewById(R.id.subjectName)).setText(p.getSubjectName());
         ((TextView) view.findViewById(R.id.battleState)).setText(p.getBattleState());
+        switch (p.getBattleState()) {
+            case "Ожидание":
+                ((TextView) view.findViewById(R.id.battleState))
+                        .setBackgroundResource(R.color.colorWaiting);
+                break;
+            case "Победа":
+                ((TextView) view.findViewById(R.id.battleState))
+                        .setBackgroundResource(R.color.colorWin);
+                break;
+            case "Поражение":
+                ((TextView) view.findViewById(R.id.battleState))
+                        .setBackgroundResource(R.color.colorDefeat);
+                break;
+            case "Ничья":
+                ((TextView) view.findViewById(R.id.battleState))
+                        .setBackgroundResource(R.color.colorDraw);
+                break;
+        }
         ((TextView) view.findViewById(R.id.battleScore)).setText(p.getBattleScore());
 
         return view;

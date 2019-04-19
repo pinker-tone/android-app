@@ -94,8 +94,16 @@
                 android:hint="@string/confirmPasswordHint"
                 android:inputType="textPassword" />
 
+            <TextView
+                android:id="@+id/errorsSignup"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:gravity="center"/>
+
             <Button
                 android:id="@+id/registrationBtn"
+                android:onClick="signUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
