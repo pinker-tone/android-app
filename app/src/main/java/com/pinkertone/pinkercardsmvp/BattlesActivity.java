@@ -125,5 +125,11 @@ public class BattlesActivity extends AppCompatActivity {
         });
     }
 
+    public void jumpToEnemies(View view) {
+        Intent intent = new Intent(BattlesActivity.this, EnemiesActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
 
