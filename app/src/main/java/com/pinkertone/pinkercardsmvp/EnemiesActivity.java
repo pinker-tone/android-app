@@ -51,7 +51,6 @@ public class EnemiesActivity extends AppCompatActivity {
                     }
 
 
-                    //TODO: кастомный лайаут
                     ArrayAdapter<String> adapter = new ArrayAdapter(EnemiesActivity.this,
                             android.R.layout.simple_list_item_1, enemyNames);
 
