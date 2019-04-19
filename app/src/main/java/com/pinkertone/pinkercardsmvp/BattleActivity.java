@@ -49,10 +49,11 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     public void answerYes(View view){
-        splashRight(view);
         if (rightAnswers[questionNumber-1] == true){
+            splashRight(view);
             this.correctAnswers++;
-            System.out.println(correctAnswers);
+        } else {
+            splashWrong(view);
         }
         if (questionNumber < 5) {
             nextQuestion();
@@ -62,9 +63,11 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     public void answerNo(View view){
-        splashWrong(view);
         if (rightAnswers[questionNumber-1] == false){
+            splashRight(view);
             this.correctAnswers++;
+        } else {
+            splashWrong(view);
         }
         if (questionNumber < 5) {
             nextQuestion();

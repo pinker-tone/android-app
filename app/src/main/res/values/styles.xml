@@ -39,6 +39,21 @@
         <item name="android:textColor">@color/background</item>
     </style>
 
+    <style name="stateWin">
+        <item name="android:background">@color/colorWin</item>
+        <item name="android:color">#fff</item>
+    </style>
 
+    <style name="stateDefeat">
+        <item name="android:background">@color/colorDefeat</item>
+    </style>
+
+    <style name="stateDraw">
+        <item name="android:background">@color/colorDraw</item>
+    </style>
+
+    <style name="stateWaiting">
+        <item name="android:background">@color/colorWaiting</item>
+    </style>
 
 </resources>

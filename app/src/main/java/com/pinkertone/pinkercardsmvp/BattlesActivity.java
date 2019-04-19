@@ -4,16 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.pinkertone.pinkercardsmvp.model.Game;
-import com.pinkertone.pinkercardsmvp.model.LogToken;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,9 +32,16 @@ public class BattlesActivity extends AppCompatActivity {
         colorDefeat = getResources().getColor(R.color.colorDefeat);
         colorDraw = getResources().getColor(R.color.colorDraw);
 
-        sPref = getSharedPreferences("AuthData", MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battles);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        sPref = getSharedPreferences("AuthData", MODE_PRIVATE);
 
         String token = sPref.getString(TOKEN, "");
         if (token == ""){
@@ -50,66 +54,75 @@ public class BattlesActivity extends AppCompatActivity {
         call.enqueue(new Callback<ArrayList<Game>>() {
             @Override
             public void onResponse(Call<ArrayList<Game>> call, Response<ArrayList<Game>> response) {
-                if (response.isSuccessful()){
-                    LinearLayout linLayout = findViewById(R.id.linLayout);
+                if (response.isSuccessful()) {
 
-                    LayoutInflater ltInflater = getLayoutInflater();
+                    ArrayList<BattleItem> battleItems = new ArrayList<BattleItem>();
+                    BattlesAdapter battlesAdapter;
 
                     for (Game game: response.body()) {
+                        String enemyName;
 
-                        View battle_item = ltInflater.inflate(R.layout.battle_item, linLayout, false);
-
-                        TextView enemyName = battle_item.findViewById(R.id.enemyName);
                         if (game.user1.username.equals(sPref.getString("username", ""))){
-                            enemyName.setText(game.user2.username);
-                        }
-                        else {
-                            enemyName.setText(game.user1.username);
+                            enemyName = game.user2.username;
+                        } else {
+                            enemyName = game.user1.username;
                         }
 
                         String date = game.date.substring(11, 19) + " " + game.date.substring(8, 10) + "/" + game.date.substring(5, 7);
-                        TextView battleDate = battle_item.findViewById(R.id.battleDate);
-                        battleDate.setText(date);
 
-                        TextView subjectName = battle_item.findViewById(R.id.subjectName);
-                        subjectName.setText("История");
-
-                        TextView battleState = battle_item.findViewById(R.id.battleState);
-                        TextView battleScore = battle_item.findViewById(R.id.battleScore);
+                        String battleState = null;
+                        String battleScore = "";
+                        boolean scoreIsVisible;
 
                         switch (game.status) {
                             case "WAITING":
-                                battleState.setText("Ожидание");
-                                battleState.setBackgroundColor(colorWaiting);
-                                battleScore.setVisibility(View.GONE);
+                                battleState = "Ожидание";
+//                                battleState.setBackgroundColor(colorWaiting);
+                                scoreIsVisible = false;
                                 break;
                             case "ENDED":
                                 if (!game.draw) {
                                     if (game.winner.username.equals(sPref.getString("username", ""))) {
-                                        battleState.setText("Победа");
-                                        battleState.setBackgroundColor(colorWin);
+                                        battleState = "Победа";
+//                                        battleState.setBackgroundColor(colorWin);
+                                    } else {
+                                        battleState = "Поражение";
+//                                        battleState.setBackgroundColor(colorDefeat);
                                     }
-                                    else {
-                                        battleState.setText("Поражение");
-                                        battleState.setBackgroundColor(colorDefeat);
-                                    }
-                                }
-                                else {
-                                    battleState.setText("Ничья");
-                                    battleState.setBackgroundColor(colorDraw);
+                                } else {
+                                    battleState = "Ничья";
+//                                    battleState.setBackgroundColor(colorDraw);
                                 }
                                 if (game.user1.username.equals(sPref.getString("username", ""))) {
-                                    battleScore.setText(game.answersCorrectUser1 + ":" + game.answersCorrectUser2);
+                                    battleScore = game.answersCorrectUser1 + ":" + game.answersCorrectUser2;
                                 }
                                 else {
-                                    battleScore.setText(game.answersCorrectUser2 + ":" + game.answersCorrectUser1);
+                                    battleScore = game.answersCorrectUser2 + ":" + game.answersCorrectUser1;
                                 }
                         }
 
-                        linLayout.addView(battle_item);
+                        BattleItem item = new BattleItem();
+                        item.setBattleDate(date);
+                        item.setBattleScore(battleScore);
+                        item.setBattleState(battleState);
+                        item.setEnemyName(enemyName);
+                        item.setSubjectName("История");
+
+                        battleItems.add(item);
+
                     }
-                }
-                else {
+
+                    battlesAdapter = new BattlesAdapter(BattlesActivity.this, battleItems);
+
+                    ListView battlesLV = findViewById(R.id.battlesLV);
+                    battlesLV.setAdapter(battlesAdapter);
+                    battlesLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            System.out.println(position);
+                        }
+                    });
+                } else {
                     System.out.println(response.body());
                 }
             }
@@ -118,13 +131,15 @@ public class BattlesActivity extends AppCompatActivity {
             public void onFailure(Call<ArrayList<Game>> call, Throwable t) {
                 // nothing
             }
+
         });
+
     }
+
 
     public void jumpToEnemies(View view) {
         Intent intent = new Intent(BattlesActivity.this, EnemiesActivity.class);
         startActivity(intent);
-        finish();
     }
 
 }
