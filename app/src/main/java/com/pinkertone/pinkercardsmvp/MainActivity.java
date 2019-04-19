@@ -23,12 +23,12 @@ public class MainActivity extends AppCompatActivity {
 
         sPref = getSharedPreferences("AuthData", MODE_PRIVATE);
         String token = sPref.getString(TOKEN, "");
+        assert token != null;
         if (token.equals("")){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
-        }
-        else {
+        } else {
             Intent intent = new Intent(this, BattlesActivity.class);
             startActivity(intent);
             finish();

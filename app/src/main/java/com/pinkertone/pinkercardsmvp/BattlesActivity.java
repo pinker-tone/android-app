@@ -51,7 +51,7 @@ public class BattlesActivity extends AppCompatActivity {
         call.enqueue(new Callback<ArrayList<Game>>() {
             @Override
             public void onResponse(Call<ArrayList<Game>> call, Response<ArrayList<Game>> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     //ListView battlesLV = findViewById(R.id.battlesLV);
 
                     //LayoutInflater ltInflater = getLayoutInflater();
@@ -112,32 +112,38 @@ public class BattlesActivity extends AppCompatActivity {
 
                     ArrayList<BattleItem> battleItems = new ArrayList<BattleItem>();
                     BattlesAdapter battlesAdapter;
-                    fillData();
+
+
+                    BattleItem i = new BattleItem();
+                    i.setBattleDate("Date");
+                    i.setBattleScore("4:3");
+                    i.setBattleState("Win");
+                    i.setEnemyName("Vitalia");
+                    i.setSubjectName("History");
+
+                    BattleItem j = new BattleItem();
+                    j.setBattleDate("2019/102/3");
+                    j.setBattleScore("1:3");
+                    j.setBattleState("Loose");
+                    j.setEnemyName("Misha");
+                    j.setSubjectName("History");
+
+                    battleItems.add(i);
+                    battleItems.add(i);
+                    battleItems.add(i);
+                    battleItems.add(i);
+                    battleItems.add(i);
+
+
                     battlesAdapter = new BattlesAdapter(BattlesActivity.this, battleItems);
 
                     ListView battlesLV = findViewById(R.id.battlesLV);
                     battlesLV.setAdapter(battlesAdapter);
 
-                    void fillData(){
-                        BattleItem i = new BattleItem();
-                        i.setBattleDate("Date");
-                        i.setBattleScore("4:3");
-                        i.setBattleState("Win");
-                        i.setEnemyName("Vitalia");
-                        i.setSubjectName("History");
 
-                        BattleItem j = new BattleItem();
-                        j.setBattleDate("2019/102/3");
-                        j.setBattleScore("1:3");
-                        j.setBattleState("Loose");
-                        j.setEnemyName("Misha");
-                        j.setSubjectName("History");
 
-                        battleItems.add(i);
-                        battleItems.add(j);
-                    }
-                }
-                else {
+
+                } else {
                     System.out.println(response.body());
                 }
             }
