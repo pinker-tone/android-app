@@ -24,8 +24,6 @@ public class BattleResultsActivity extends AppCompatActivity {
     private final String TOKEN = "Token";
     private byte rightAnswersNum;
     private TextView resultNumTV;
-    private TextView motivationTV;
-    private String[] motivationArr;
     private int id;
     SharedPreferences sPref;
 

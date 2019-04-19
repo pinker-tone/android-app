@@ -55,11 +55,7 @@ public class BattlesActivity extends AppCompatActivity {
 
                     LayoutInflater ltInflater = getLayoutInflater();
 
-                    ArrayList<Game> game_list = new ArrayList(response.body().size());
-                    for (int i = 0; i < response.body().size(); i++)
-                        game_list.add(response.body().get(response.body().size()-(i+1)));
-
-                    for (Game game: game_list) {
+                    for (Game game: response.body()) {
 
                         View battle_item = ltInflater.inflate(R.layout.battle_item, linLayout, false);
 

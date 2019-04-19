@@ -45,13 +45,9 @@ public class EnemiesActivity extends AppCompatActivity {
             @Override
             public void onResponse(final Call<ArrayList<User>> call, final Response<ArrayList<User>> response) {
                 if (response.isSuccessful()){
-                    String[] enemyNames = new String[response.body().size()-1];
-                    int minus = 0;
+                    String[] enemyNames = new String[response.body().size()];
                     for (int i = 0; i < response.body().size(); i++){
-                        User user = response.body().get(i);
-                        if (!user.username.equals(sPref.getString("username", "")))
-                            enemyNames[i-minus] = user.username;
-                        else minus++;
+                        enemyNames[i] = response.body().get(i).username;
                     }
 
 
