@@ -1,6 +1,7 @@
 package com.pinkertone.pinkercardsmvp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,46 +13,38 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences sPref;
+    final String TOKEN = "Token";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sPref = getSharedPreferences("AuthData", MODE_PRIVATE);
+        String token = sPref.getString(TOKEN, "");
+        if (token.equals("")){
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            Intent intent = new Intent(this, BattlesActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void jumpToLogin(View view) {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
-    }
-
-    public void jumpToSignUp(View view) {
-        Intent intent = new Intent(MainActivity.this, signUpActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     public void jumpToBattles(View view) {
         Intent intent = new Intent(MainActivity.this, BattlesActivity.class);
         startActivity(intent);
-    }
-
-    public void jumpToBattle(View view) {
-        Intent intent = new Intent(this, BattleActivity.class);
-        //String jsonString = "{ \"name\" : \"Ronaldo\", \"sport\" : \"soccer\", \"age\" : 25, \"id\" : 121, \"lastScores\" : [ 2, 1, 3, 5, 0, 0, 1, 1 ]  }";
-        //Gson g = new Gson();
-        //BattleData b = g.fromJson(jsonString, BattleData.class);
-        //Log.d("mylog", b.name);
-
-        String[] questionsArray = {
-                "Был ли кто-то когда я умер?",
-                "Да или нет?",
-                "В питере можно пить?",
-                "Стиви Джобс умер в 2007",
-                "У матросов есть вопросы?"
-        };
-        boolean[] answersArray = {true, true, true, true, true};
-        intent.putExtra("questions", questionsArray);
-        intent.putExtra("rightAnswers", answersArray);
-        //Intent intent = new Intent(MainActivity.this, BattleActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     public void jumpToEnemies(View view) {
