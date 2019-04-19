@@ -15,7 +15,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="13dp"
             android:layout_marginBottom="13dp"
-            android:background="@drawable/button_no"
+            android:background="@drawable/button_yes"
             android:drawableEnd="@drawable/ic_navigate_next_black_24dp"
             android:drawablePadding="8dp"
             android:onClick="jumpToEnemies"
@@ -29,11 +29,11 @@
             android:text="Текущие бои"
             android:layout_gravity="center_horizontal">
         </TextView>
-        <LinearLayout
-            android:id="@+id/linLayout"
+        <ListView
+            android:id="@+id/battlesLV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-        </LinearLayout>
+        </ListView>
     </LinearLayout>
 </ScrollView>
