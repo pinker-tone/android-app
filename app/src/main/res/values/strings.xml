@@ -4,7 +4,7 @@
     <string name="registrationSign">Регистрация</string>
     <string name="registrationGoto">Регистрация</string>
     <string name="loginGoto">Вход</string>
-    <string name="loginMailHint">Логин / E-mail</string>
+    <string name="loginMailHint">Логин</string>
     <string name="passwordHint">Пароль</string>
     <string name="enterBtn">Войти</string>
     <string name="registrationBtn">Зарегистрироваться</string>
