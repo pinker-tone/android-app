@@ -55,22 +55,26 @@ public class BattlesAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.battleDate)).setText(p.getBattleDate());
         ((TextView) view.findViewById(R.id.subjectName)).setText(p.getSubjectName());
         ((TextView) view.findViewById(R.id.battleState)).setText(p.getBattleState());
+
+        if (!p.getAccepted()){
+            view.setBackgroundResource(R.color.unAcceptedBG);
+        }
+        else {
+            view.setBackgroundResource(R.color.normal);
+        }
+
         switch (p.getBattleState()) {
             case "Ожидание":
-                ((TextView) view.findViewById(R.id.battleState))
-                        .setBackgroundResource(R.color.colorWaiting);
+                view.findViewById(R.id.battleState).setBackgroundResource(R.color.colorWaiting);
                 break;
             case "Победа":
-                ((TextView) view.findViewById(R.id.battleState))
-                        .setBackgroundResource(R.color.colorWin);
+                view.findViewById(R.id.battleState).setBackgroundResource(R.color.colorWin);
                 break;
             case "Поражение":
-                ((TextView) view.findViewById(R.id.battleState))
-                        .setBackgroundResource(R.color.colorDefeat);
+                view.findViewById(R.id.battleState).setBackgroundResource(R.color.colorDefeat);
                 break;
             case "Ничья":
-                ((TextView) view.findViewById(R.id.battleState))
-                        .setBackgroundResource(R.color.colorDraw);
+                view.findViewById(R.id.battleState).setBackgroundResource(R.color.colorDraw);
                 break;
         }
         ((TextView) view.findViewById(R.id.battleScore)).setText(p.getBattleScore());

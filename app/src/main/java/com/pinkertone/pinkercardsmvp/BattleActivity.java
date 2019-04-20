@@ -14,11 +14,13 @@ public class BattleActivity extends AppCompatActivity {
 
     private byte questionNumber = 0;
     private boolean[] rightAnswers;
-    private List<Boolean> userAnswers;
     private TextView questionsTV;
     public String[] questions;
-    private byte correctAnswers = 0;
+    private int correctAnswers = 0;
     private int id;
+    private String status;
+    private TextView numberQuestion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,15 +28,16 @@ public class BattleActivity extends AppCompatActivity {
         Bundle arguments = getIntent().getExtras();
         assert arguments != null;
         id = arguments.getInt("game_id");
-        userAnswers = new ArrayList(5);
         questionsTV = findViewById(R.id.questionTV);
-
-        questions = arguments.getStringArray("questions");
+        numberQuestion = findViewById(R.id.questionNumber);
 
         questions = arguments.getStringArray("questions");
         rightAnswers = arguments.getBooleanArray("rightAnswers");
+        status = arguments.getString("status");
+
         assert questions != null;
         questionsTV.setText(questions[questionNumber]);
+        numberQuestion.setText(questionNumber+1 + "/5");
         questionNumber++;
     }
 
@@ -78,6 +81,7 @@ public class BattleActivity extends AppCompatActivity {
 
     private void nextQuestion(){
         questionsTV.setText(questions[questionNumber]);
+        numberQuestion.setText(questionNumber+1 + "/5");
         questionNumber++;
     }
 
@@ -85,7 +89,9 @@ public class BattleActivity extends AppCompatActivity {
         System.out.println(correctAnswers);
         Intent intent = new Intent(this, BattleResultsActivity.class);
         intent.putExtra("rightAnswersNum", correctAnswers);
+        intent.putExtra("whatToDo", "SEND");
         intent.putExtra("game_id", id);
+        intent.putExtra("status", status);
         startActivity(intent);
         finish();
     }
