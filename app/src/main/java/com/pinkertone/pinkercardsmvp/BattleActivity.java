@@ -7,9 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BattleActivity extends AppCompatActivity {
 
     private byte questionNumber = 0;
@@ -52,7 +49,7 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     public void answerYes(View view){
-        if (rightAnswers[questionNumber-1] == true){
+        if (rightAnswers[questionNumber-1]){
             splashRight(view);
             this.correctAnswers++;
         } else {
@@ -66,7 +63,7 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     public void answerNo(View view){
-        if (rightAnswers[questionNumber-1] == false){
+        if (!rightAnswers[questionNumber - 1]){
             splashRight(view);
             this.correctAnswers++;
         } else {
