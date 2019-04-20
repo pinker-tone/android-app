@@ -84,6 +84,7 @@ public class EnemiesActivity extends AppCompatActivity {
                                         intent.putExtra("questions", questionsArray);
                                         intent.putExtra("rightAnswers", answersArray);
                                         intent.putExtra("game_id", game.id);
+                                        intent.putExtra("status", "WAITING");
                                         startActivity(intent);
                                         finish();
                                     }

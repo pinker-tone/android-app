@@ -53,7 +53,7 @@ public class BattlesActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<ArrayList<Game>>() {
             @Override
-            public void onResponse(Call<ArrayList<Game>> call, Response<ArrayList<Game>> response) {
+            public void onResponse(Call<ArrayList<Game>> call, final Response<ArrayList<Game>> response) {
                 if (response.isSuccessful()) {
 
                     ArrayList<BattleItem> battleItems = new ArrayList<BattleItem>();
@@ -61,37 +61,42 @@ public class BattlesActivity extends AppCompatActivity {
 
                     for (Game game: response.body()) {
                         String enemyName;
+                        boolean isAccepted;
 
                         if (game.user1.username.equals(sPref.getString("username", ""))){
                             enemyName = game.user2.username;
+                            if (game.answersCorrectUser1 == null){
+                                isAccepted = false;
+                            }
+                            else {
+
+                                isAccepted = true; }
                         } else {
                             enemyName = game.user1.username;
+                            if (game.answersCorrectUser2 == null){
+                                isAccepted = false;
+                            }
+                            else { isAccepted = true; }
                         }
 
                         String date = game.date.substring(11, 19) + " " + game.date.substring(8, 10) + "/" + game.date.substring(5, 7);
 
                         String battleState = null;
                         String battleScore = "";
-                        boolean scoreIsVisible;
 
                         switch (game.status) {
                             case "WAITING":
                                 battleState = "Ожидание";
-//                                battleState.setBackgroundColor(colorWaiting);
-                                scoreIsVisible = false;
                                 break;
                             case "ENDED":
                                 if (!game.draw) {
                                     if (game.winner.username.equals(sPref.getString("username", ""))) {
                                         battleState = "Победа";
-//                                        battleState.setBackgroundColor(colorWin);
                                     } else {
                                         battleState = "Поражение";
-//                                        battleState.setBackgroundColor(colorDefeat);
                                     }
                                 } else {
                                     battleState = "Ничья";
-//                                    battleState.setBackgroundColor(colorDraw);
                                 }
                                 if (game.user1.username.equals(sPref.getString("username", ""))) {
                                     battleScore = game.answersCorrectUser1 + ":" + game.answersCorrectUser2;
@@ -101,11 +106,14 @@ public class BattlesActivity extends AppCompatActivity {
                                 }
                         }
 
+
+
                         BattleItem item = new BattleItem();
                         item.setBattleDate(date);
                         item.setBattleScore(battleScore);
                         item.setBattleState(battleState);
                         item.setEnemyName(enemyName);
+                        item.setAccepted(isAccepted);
                         item.setSubjectName("История");
 
                         battleItems.add(item);
@@ -119,7 +127,55 @@ public class BattlesActivity extends AppCompatActivity {
                     battlesLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            System.out.println(position);
+                            Game game = response.body().get(position);
+                            switch (game.status) {
+                                case "ENDED":
+                                    jumpToResultsActivity(game.id, game.status, "SHOW");
+                                    break;
+                                case "WAITING":
+                                    if (game.user1.username.equals(sPref.getString("username", ""))){
+                                        if (game.answersCorrectUser1 == null){
+                                            String[] questionsArray = new String[5];
+                                            boolean[] answersArray = new boolean[5];
+                                            for (int i = 0; i < 5; i++){
+                                                questionsArray[i] = game.questions.get(i).questionText;
+                                                switch (game.questions.get(i).answer) {
+                                                    case "Yes":
+                                                        answersArray[i] = true;
+                                                        break;
+                                                    case "No":
+                                                        answersArray[i] = false;
+                                                        break;
+                                                }
+                                            }
+                                            jumpToBattleActivity(questionsArray, answersArray, game.id, game.status);
+                                        }
+                                        else {
+                                            jumpToResultsActivity(game.id, game.status, "SHOW", game.answersCorrectUser1, game.user2.username);
+                                            }
+                                    } else {
+                                        if (game.answersCorrectUser2 == null){
+                                            String[] questionsArray = new String[5];
+                                            boolean[] answersArray = new boolean[5];
+                                            for (int i = 0; i < 5; i++){
+                                                questionsArray[i] = game.questions.get(i).questionText;
+                                                switch (game.questions.get(i).answer) {
+                                                    case "Yes":
+                                                        answersArray[i] = true;
+                                                        break;
+                                                    case "No":
+                                                        answersArray[i] = false;
+                                                        break;
+                                                }
+                                            }
+                                            jumpToBattleActivity(questionsArray, answersArray, game.id, game.status);
+                                        }
+                                        else {
+                                            jumpToResultsActivity(game.id, game.status, "SHOW", game.answersCorrectUser2, game.user1.username);
+                                        }
+                                    }
+                                    break;
+                            }
                         }
                     });
                 } else {
@@ -139,6 +195,33 @@ public class BattlesActivity extends AppCompatActivity {
 
     public void jumpToEnemies(View view) {
         Intent intent = new Intent(BattlesActivity.this, EnemiesActivity.class);
+        startActivity(intent);
+    }
+
+    public void jumpToBattleActivity(String [] questions, boolean[] rightAnswers, int game_id, String status){
+        Intent intent = new Intent(BattlesActivity.this, BattleActivity.class);
+        intent.putExtra("questions", questions);
+        intent.putExtra("rightAnswers", rightAnswers);
+        intent.putExtra("status", status);
+        intent.putExtra("game_id", game_id);
+        startActivity(intent);
+    }
+
+    public void jumpToResultsActivity(int id, String status, String whatToDo){
+        Intent intent = new Intent(BattlesActivity.this, BattleResultsActivity.class);
+        intent.putExtra("game_id", id);
+        intent.putExtra("status", status);
+        intent.putExtra("whatToDo", whatToDo);
+        startActivity(intent);
+    }
+
+    public void jumpToResultsActivity(int id, String status, String whatToDo, int correctAnswers, String opponent){
+        Intent intent = new Intent(BattlesActivity.this, BattleResultsActivity.class);
+        intent.putExtra("game_id", id);
+        intent.putExtra("status", status);
+        intent.putExtra("whatToDo", whatToDo);
+        intent.putExtra("rightAnswersNum", correctAnswers);
+        intent.putExtra("opponent", opponent);
         startActivity(intent);
     }
 

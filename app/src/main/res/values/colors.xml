@@ -13,4 +13,7 @@
     <color name="colorDraw">#E4CF0D</color>
 
     <color name="cardBG">#FAE01B</color>
+
+    <color name="unAcceptedBG">#88F36464</color>
+    <color name="normal">#F5EEEE</color>
 </resources>
