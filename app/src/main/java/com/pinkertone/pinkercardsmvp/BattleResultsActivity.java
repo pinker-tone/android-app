@@ -51,7 +51,7 @@ public class BattleResultsActivity extends AppCompatActivity {
         status = arguments.getString("status");
         id = arguments.getInt("game_id");
 
-        final String myusername = sPref.getString("username", "");
+        final String myusername = sPref.getString("username", "").toLowerCase();
 
 
 
@@ -75,14 +75,14 @@ public class BattleResultsActivity extends AppCompatActivity {
                                     if (response.isSuccessful()){
                                         Game game = response.body().get(0);
                                         if (game.status.equals("ENDED")) {
-                                            if (game.user1.username.equals(myusername)){
+                                            if (game.user1.username.toLowerCase().equals(myusername)){
                                                 motivationTV.setText("Вы играли против "+game.user2.username);
                                             } else {
                                                 motivationTV.setText("Вы играли против "+game.user1.username);
                                             }
 
                                             if (!game.draw) {
-                                                if (game.winner.username.equals(myusername)){
+                                                if (game.winner.username.toLowerCase().equals(myusername)){
                                                     resultTV.setText("Победа");
                                                 } else {
                                                     resultTV.setText("Поражение");
@@ -90,7 +90,7 @@ public class BattleResultsActivity extends AppCompatActivity {
                                             } else {
                                                 resultTV.setText("Ничья");
                                             }
-                                            if (game.user1.username.equals(myusername)){
+                                            if (game.user1.username.toLowerCase().equals(myusername)){
                                                 resultNumTV.setText(game.answersCorrectUser1+":"+game.answersCorrectUser2);
                                             } else {
                                                 resultNumTV.setText(game.answersCorrectUser2+":"+game.answersCorrectUser1);
@@ -99,7 +99,7 @@ public class BattleResultsActivity extends AppCompatActivity {
                                         } else {
                                             resultTV.setText("Ожидание");
                                             resultNumTV.setText(rightAnswersNum + "/5");
-                                            if (game.user1.username.equals(myusername)) {
+                                            if (game.user1.username.toLowerCase().equals(myusername)) {
                                                 String opponent = game.user2.username;
                                                 motivationTV.setText("Вы играете против " + opponent);
                                             } else{
@@ -132,14 +132,14 @@ public class BattleResultsActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ArrayList<Game>> call, Response<ArrayList<Game>> response) {
                     Game game = response.body().get(0);
-                    if (game.user1.username.equals(myusername)){
+                    if (game.user1.username.toLowerCase().equals(myusername)){
                         motivationTV.setText("Вы играли против "+game.user2.username);
                     } else {
                         motivationTV.setText("Вы играли против "+game.user1.username);
                     }
 
                     if (!game.draw) {
-                        if (game.winner.username.equals(myusername)){
+                        if (game.winner.username.toLowerCase().equals(myusername)){
                             resultTV.setText("Победа");
                         } else {
                             resultTV.setText("Поражение");
@@ -147,7 +147,7 @@ public class BattleResultsActivity extends AppCompatActivity {
                     } else {
                         resultTV.setText("Ничья");
                     }
-                    if (game.user1.username.equals(myusername)){
+                    if (game.user1.username.toLowerCase().equals(myusername)){
                         resultNumTV.setText(game.answersCorrectUser1+":"+game.answersCorrectUser2);
                     } else {
                         resultNumTV.setText(game.answersCorrectUser2+":"+game.answersCorrectUser1);

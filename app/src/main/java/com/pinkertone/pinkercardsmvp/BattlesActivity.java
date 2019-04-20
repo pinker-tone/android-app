@@ -42,7 +42,7 @@ public class BattlesActivity extends AppCompatActivity {
         super.onStart();
 
         sPref = getSharedPreferences("AuthData", MODE_PRIVATE);
-
+        final String myusername = sPref.getString("username", "").toLowerCase();
         String token = sPref.getString(TOKEN, "");
         if (token == ""){
             Intent intent = new Intent(BattlesActivity.this, LoginActivity.class);
@@ -63,14 +63,12 @@ public class BattlesActivity extends AppCompatActivity {
                         String enemyName;
                         boolean isAccepted;
 
-                        if (game.user1.username.equals(sPref.getString("username", ""))){
+                        if (game.user1.username.toLowerCase().equals(myusername)){
                             enemyName = game.user2.username;
                             if (game.answersCorrectUser1 == null){
                                 isAccepted = false;
                             }
-                            else {
-
-                                isAccepted = true; }
+                            else { isAccepted = true; }
                         } else {
                             enemyName = game.user1.username;
                             if (game.answersCorrectUser2 == null){
@@ -90,7 +88,7 @@ public class BattlesActivity extends AppCompatActivity {
                                 break;
                             case "ENDED":
                                 if (!game.draw) {
-                                    if (game.winner.username.equals(sPref.getString("username", ""))) {
+                                    if (game.winner.username.toLowerCase().equals(myusername)) {
                                         battleState = "Победа";
                                     } else {
                                         battleState = "Поражение";
@@ -98,7 +96,7 @@ public class BattlesActivity extends AppCompatActivity {
                                 } else {
                                     battleState = "Ничья";
                                 }
-                                if (game.user1.username.equals(sPref.getString("username", ""))) {
+                                if (game.user1.username.toLowerCase().equals(myusername)) {
                                     battleScore = game.answersCorrectUser1 + ":" + game.answersCorrectUser2;
                                 }
                                 else {
@@ -133,7 +131,7 @@ public class BattlesActivity extends AppCompatActivity {
                                     jumpToResultsActivity(game.id, game.status, "SHOW");
                                     break;
                                 case "WAITING":
-                                    if (game.user1.username.equals(sPref.getString("username", ""))){
+                                    if (game.user1.username.toLowerCase().equals(myusername)){
                                         if (game.answersCorrectUser1 == null){
                                             String[] questionsArray = new String[5];
                                             boolean[] answersArray = new boolean[5];

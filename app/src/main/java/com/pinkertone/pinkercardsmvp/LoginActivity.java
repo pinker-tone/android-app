@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     LogToken token = response.body();
                     ed.putString(TOKEN, token.authToken);
-                    ed.putString("username", username);
+                    ed.putString("username", username.toLowerCase());
                     ed.commit();
                     jumpToBattles();
                 }
