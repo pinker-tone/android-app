@@ -20,6 +20,11 @@
             android:paddingEnd="8dp"
             android:text="Новый батл начать"
             android:textSize="12sp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="profile"
+            android:onClick="jumpToProfile"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

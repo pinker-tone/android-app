@@ -196,6 +196,11 @@ public class BattlesActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void jumpToProfile(View view) {
+        Intent intent = new Intent(BattlesActivity.this, ProfileActivity.class);
+        startActivity(intent);
+    }
+
     public void jumpToBattleActivity(String [] questions, boolean[] rightAnswers, int game_id, String status){
         Intent intent = new Intent(BattlesActivity.this, BattleActivity.class);
         intent.putExtra("questions", questions);

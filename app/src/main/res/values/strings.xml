@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">pinkerCardsMVP</string>
+    <string name="app_name">pCards</string>
     <string name="enterSign">Вход</string>
     <string name="registrationSign">Регистрация</string>
     <string name="registrationGoto">Регистрация</string>
@@ -14,5 +14,6 @@
     <string name="title_activity_battles">BattlesActivity</string>
     <string name="password_dont_match_error">Пароли не совпадают</string>
     <string name="something_went_wrong">Что-то пошло не так. \nВозможно пользователь с таким ником или почтой уже существует или ваш пароль слишком простой.</string>
+    <string name="exit">Выйти из аккаунта</string>
 
 </resources>
