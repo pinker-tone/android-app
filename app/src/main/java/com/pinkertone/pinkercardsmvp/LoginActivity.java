@@ -42,9 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ed = sPref.edit();
         login_error = findViewById(R.id.login_error);
-//        if (!sPref.getString(TOKEN, "").equals("") && !sPref.getString("username", "").equals("")){
-//            jumpToBattles();
-//        }
     }
 
     public void jumpToSignUp(View view) {
