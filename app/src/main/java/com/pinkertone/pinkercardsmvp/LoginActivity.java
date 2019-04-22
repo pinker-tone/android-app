@@ -9,26 +9,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.pinkertone.pinkercardsmvp.model.AccountInfo;
 import com.pinkertone.pinkercardsmvp.model.LogToken;
-
-//import java.io.IOException;
-//
-//import okhttp3.Call;
-//import okhttp3.Callback;
-//import okhttp3.MediaType;
-//import okhttp3.OkHttpClient;
-//import okhttp3.Request;
-//import okhttp3.RequestBody;
-//import okhttp3.Response;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
     SharedPreferences sPref;
@@ -69,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void getToken(final String username, String password){
+        login_error.setVisibility(View.GONE);
         Call<LogToken> call = Singleton.getInstance().apiService.logToken(username, password);
         call.enqueue(new Callback<LogToken>() {
             @Override
@@ -76,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     LogToken token = response.body();
                     ed.putString(TOKEN, token.authToken);
-                    ed.putString("username", username.toLowerCase());
+                    ed.putString("username", username);
                     ed.commit();
 
                     Call<AccountInfo> call2 = Singleton.getInstance().apiService.getAccountInfo("Token " + sPref.getString("Token", ""));

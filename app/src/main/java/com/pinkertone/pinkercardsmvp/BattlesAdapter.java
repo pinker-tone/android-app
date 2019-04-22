@@ -56,11 +56,11 @@ public class BattlesAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.subjectName)).setText(p.getSubjectName());
         ((TextView) view.findViewById(R.id.battleState)).setText(p.getBattleState());
 
-        if (!p.getAccepted()){
-            view.setBackgroundResource(R.color.unAcceptedBG);
+        if (p.getAccepted()){
+            view.setBackgroundResource(R.color.normal);
         }
         else {
-            view.setBackgroundResource(R.color.normal);
+            view.setBackgroundResource(R.color.unAcceptedBG);
         }
 
         switch (p.getBattleState()) {

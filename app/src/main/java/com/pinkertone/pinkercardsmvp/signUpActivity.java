@@ -54,7 +54,7 @@ public class signUpActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<CreateUser> call, Response<CreateUser> response) {
                         if (response.isSuccessful()) {
-                            ed.putString("username", username.getText().toString().toLowerCase());
+                            ed.putString("username", username.getText().toString());
                             ed.putString("email", email.getText().toString());
                             ed.commit();
                             Call<LogToken> call2 = Singleton.getInstance().apiService.logToken(username.getText().toString(),
