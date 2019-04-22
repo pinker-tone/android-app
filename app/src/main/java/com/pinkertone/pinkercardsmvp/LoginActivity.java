@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     LogToken token = response.body();
                     ed.putString(TOKEN, token.authToken);
-                    ed.putString("username", username);
                     ed.commit();
 
                     Call<AccountInfo> call2 = Singleton.getInstance().apiService.getAccountInfo("Token " + sPref.getString("Token", ""));
@@ -75,7 +74,9 @@ public class LoginActivity extends AppCompatActivity {
                                 AccountInfo acc_info = response.body();
                                 if (!acc_info.email.isEmpty()){
                                     ed.putString("email", acc_info.email);
+                                    ed.putString("username", acc_info.username);
                                     ed.commit();
+                                    jumpToBattles();
                                 }
                             }
                         }
@@ -85,7 +86,6 @@ public class LoginActivity extends AppCompatActivity {
 
                         }
                     });
-                    jumpToBattles();
                 }
                 else {
                     login_error.setVisibility(View.VISIBLE);
