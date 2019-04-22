@@ -37,8 +37,8 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    public void jumpToBattles() {
-        Intent intent = new Intent(LoginActivity.this, BattlesActivity.class);
+    public void jumpToMain() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 ed.putString("username", acc_info.username);
                                 ed.commit();
-                                jumpToBattles();
+                                jumpToMain();
                             }
                         }
 

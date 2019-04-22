@@ -21,27 +21,21 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
-        } else {
-            Intent intent = new Intent(this, BattlesActivity.class);
-            startActivity(intent);
-            finish();
         }
+//        else {
+//            Intent intent = new Intent(this, BattlesActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
     }
 
-    public void jumpToLogin(View view) {
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+    public void jumpToProfile(View view) {
+        Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
         startActivity(intent);
-        finish();
     }
 
-//    public void jumpToBattles(View view) {
-//        Intent intent = new Intent(MainActivity.this, BattlesActivity.class);
-//        startActivity(intent);
-//        finish();
-//    }
-
-//    public void jumpToEnemies(View view) {
-//        Intent intent = new Intent(MainActivity.this, EnemiesActivity.class);
-//        startActivity(intent);
-//    }
+    public void jumpToBattles(View view) {
+        Intent intent = new Intent(MainActivity.this, BattlesActivity.class);
+        startActivity(intent);
+    }
 }
