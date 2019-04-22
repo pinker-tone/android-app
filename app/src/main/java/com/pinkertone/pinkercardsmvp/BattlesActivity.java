@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.pinkertone.pinkercardsmvp.model.Game;
@@ -20,6 +22,8 @@ public class BattlesActivity extends AppCompatActivity {
 
     SharedPreferences sPref;
     final String TOKEN = "Token";
+    private ListView battlesLV;
+    private LinearLayout noGames;
     int colorWaiting;
     int colorWin;
     int colorDefeat;
@@ -34,12 +38,17 @@ public class BattlesActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battles);
+        battlesLV = findViewById(R.id.battlesLV);
+        noGames = findViewById(R.id.no_games_layout);
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        noGames.setVisibility(View.GONE);
+        battlesLV.setVisibility(View.GONE);
 
         sPref = getSharedPreferences("AuthData", MODE_PRIVATE);
         final String myusername = sPref.getString("username", "").toLowerCase();
@@ -50,129 +59,134 @@ public class BattlesActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<Game>> call, final Response<ArrayList<Game>> response) {
                 if (response.isSuccessful()) {
+                    if (response.body().size() > 0) {
+                        battlesLV.setVisibility(View.VISIBLE);
+                        ArrayList<BattleItem> battleItems = new ArrayList<BattleItem>();
+                        BattlesAdapter battlesAdapter;
 
-                    ArrayList<BattleItem> battleItems = new ArrayList<BattleItem>();
-                    BattlesAdapter battlesAdapter;
+                        for (Game game : response.body()) {
+                            String enemyName;
+                            boolean isAccepted;
 
-                    for (Game game: response.body()) {
-                        String enemyName;
-                        boolean isAccepted;
-
-                        if (game.user1.username.toLowerCase().equals(myusername)){
-                            enemyName = game.user2.username;
-                            if (game.answersCorrectUser1 == null){
-                                isAccepted = false;
-                            }
-                            else { isAccepted = true; }
-                        } else {
-                            enemyName = game.user1.username;
-                            if (game.answersCorrectUser2 == null){
-                                isAccepted = false;
-                            }
-                            else { isAccepted = true; }
-                        }
-
-                        String date = game.date.substring(11, 19) + " " + game.date.substring(8, 10) + "/" + game.date.substring(5, 7);
-                        String battleState = null;
-                        String battleScore = "";
-
-                        switch (game.status) {
-                            case "WAITING":
-                                battleState = "Ожидание";
-                                break;
-                            case "ENDED":
-                                if (!game.draw) {
-                                    if (game.winner.username.toLowerCase().equals(myusername)) {
-                                        battleState = "Победа";
-                                    } else {
-                                        battleState = "Поражение";
-                                    }
+                            if (game.user1.username.toLowerCase().equals(myusername)) {
+                                enemyName = game.user2.username;
+                                if (game.answersCorrectUser1 == null) {
+                                    isAccepted = false;
                                 } else {
-                                    battleState = "Ничья";
+                                    isAccepted = true;
                                 }
-                                if (game.user1.username.toLowerCase().equals(myusername)) {
-                                    battleScore = game.answersCorrectUser1 + ":" + game.answersCorrectUser2;
+                            } else {
+                                enemyName = game.user1.username;
+                                if (game.answersCorrectUser2 == null) {
+                                    isAccepted = false;
+                                } else {
+                                    isAccepted = true;
                                 }
-                                else {
-                                    battleScore = game.answersCorrectUser2 + ":" + game.answersCorrectUser1;
-                                }
-                        }
-
-
-
-                        BattleItem item = new BattleItem();
-                        item.setBattleDate(date);
-                        item.setBattleScore(battleScore);
-                        item.setBattleState(battleState);
-                        item.setEnemyName(enemyName);
-                        item.setAccepted(isAccepted);
-                        item.setSubjectName("История");
-
-                        battleItems.add(item);
-
-                    }
-
-                    battlesAdapter = new BattlesAdapter(BattlesActivity.this, battleItems);
-
-                    ListView battlesLV = findViewById(R.id.battlesLV);
-                    battlesLV.setAdapter(battlesAdapter);
-                    battlesLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Game game = response.body().get(position);
-                            switch (game.status) {
-                                case "ENDED":
-                                    jumpToResultsActivity(game.id, game.status, "SHOW");
-                                    break;
-                                case "WAITING":
-                                    if (game.user1.username.toLowerCase().equals(myusername)){
-                                        if (game.answersCorrectUser1 == null){
-                                            String[] questionsArray = new String[5];
-                                            boolean[] answersArray = new boolean[5];
-                                            for (int i = 0; i < 5; i++){
-                                                questionsArray[i] = game.questions.get(i).questionText;
-                                                switch (game.questions.get(i).answer) {
-                                                    case "Yes":
-                                                        answersArray[i] = true;
-                                                        break;
-                                                    case "No":
-                                                        answersArray[i] = false;
-                                                        break;
-                                                }
-                                            }
-                                            jumpToBattleActivity(questionsArray, answersArray, game.id, game.status);
-                                        }
-                                        else {
-                                            jumpToResultsActivity(game.id, game.status, "SHOW", game.answersCorrectUser1, game.user2.username);
-                                            }
-                                    } else {
-                                        if (game.answersCorrectUser2 == null){
-                                            String[] questionsArray = new String[5];
-                                            boolean[] answersArray = new boolean[5];
-                                            for (int i = 0; i < 5; i++){
-                                                questionsArray[i] = game.questions.get(i).questionText;
-                                                switch (game.questions.get(i).answer) {
-                                                    case "Yes":
-                                                        answersArray[i] = true;
-                                                        break;
-                                                    case "No":
-                                                        answersArray[i] = false;
-                                                        break;
-                                                }
-                                            }
-                                            jumpToBattleActivity(questionsArray, answersArray, game.id, game.status);
-                                        }
-                                        else {
-                                            jumpToResultsActivity(game.id, game.status, "SHOW", game.answersCorrectUser2, game.user1.username);
-                                        }
-                                    }
-                                    break;
                             }
+
+                            String date = game.date.substring(11, 19) + " " + game.date.substring(8, 10) + "/" + game.date.substring(5, 7);
+                            String battleState = null;
+                            String battleScore = "";
+
+                            switch (game.status) {
+                                case "WAITING":
+                                    battleState = "Ожидание";
+                                    break;
+                                case "ENDED":
+                                    if (!game.draw) {
+                                        if (game.winner.username.toLowerCase().equals(myusername)) {
+                                            battleState = "Победа";
+                                        } else {
+                                            battleState = "Поражение";
+                                        }
+                                    } else {
+                                        battleState = "Ничья";
+                                    }
+                                    if (game.user1.username.toLowerCase().equals(myusername)) {
+                                        battleScore = game.answersCorrectUser1 + ":" + game.answersCorrectUser2;
+                                    } else {
+                                        battleScore = game.answersCorrectUser2 + ":" + game.answersCorrectUser1;
+                                    }
+                            }
+
+
+                            BattleItem item = new BattleItem();
+                            item.setBattleDate(date);
+                            item.setBattleScore(battleScore);
+                            item.setBattleState(battleState);
+                            item.setEnemyName(enemyName);
+                            item.setAccepted(isAccepted);
+                            item.setSubjectName("История");
+
+                            battleItems.add(item);
+
                         }
-                    });
+
+                        battlesAdapter = new BattlesAdapter(BattlesActivity.this, battleItems);
+
+                        battlesLV.setAdapter(battlesAdapter);
+                        battlesLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Game game = response.body().get(position);
+                                switch (game.status) {
+                                    case "ENDED":
+                                        jumpToResultsActivity(game.id, game.status, "SHOW");
+                                        break;
+                                    case "WAITING":
+                                        if (game.user1.username.toLowerCase().equals(myusername)) {
+                                            if (game.answersCorrectUser1 == null) {
+                                                String[] questionsArray = new String[5];
+                                                boolean[] answersArray = new boolean[5];
+                                                for (int i = 0; i < 5; i++) {
+                                                    questionsArray[i] = game.questions.get(i).questionText;
+                                                    switch (game.questions.get(i).answer) {
+                                                        case "Yes":
+                                                            answersArray[i] = true;
+                                                            break;
+                                                        case "No":
+                                                            answersArray[i] = false;
+                                                            break;
+                                                    }
+                                                }
+                                                jumpToBattleActivity(questionsArray, answersArray, game.id, game.status);
+                                            } else {
+                                                jumpToResultsActivity(game.id, game.status, "SHOW", game.answersCorrectUser1, game.user2.username);
+                                            }
+                                        } else {
+                                            if (game.answersCorrectUser2 == null) {
+                                                String[] questionsArray = new String[5];
+                                                boolean[] answersArray = new boolean[5];
+                                                for (int i = 0; i < 5; i++) {
+                                                    questionsArray[i] = game.questions.get(i).questionText;
+                                                    switch (game.questions.get(i).answer) {
+                                                        case "Yes":
+                                                            answersArray[i] = true;
+                                                            break;
+                                                        case "No":
+                                                            answersArray[i] = false;
+                                                            break;
+                                                    }
+                                                }
+                                                jumpToBattleActivity(questionsArray, answersArray, game.id, game.status);
+                                            } else {
+                                                jumpToResultsActivity(game.id, game.status, "SHOW", game.answersCorrectUser2, game.user1.username);
+                                            }
+                                        }
+                                        break;
+                                }
+                            }
+                        });
+                    } else {
+                        noGames.setVisibility(View.VISIBLE);
+                        LayoutInflater ngInflater = getLayoutInflater();
+                        View view = ngInflater.inflate(R.layout.no_games, null, false);
+                        noGames.addView(view);
+                    }
                 } else {
                     System.out.println(response.body());
                 }
+
             }
 
             @Override

@@ -36,6 +36,15 @@
             android:id="@+id/battlesLV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
         </ListView>
+        <LinearLayout
+            android:id="@+id/no_games_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+        </LinearLayout>
 </LinearLayout>
