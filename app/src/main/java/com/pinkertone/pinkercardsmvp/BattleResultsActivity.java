@@ -28,7 +28,7 @@ public class BattleResultsActivity extends AppCompatActivity {
     private TextView motivationTV;
     private TextView someTV;
     private int id;
-    SharedPreferences sPref;
+    private SharedPreferences sPref;
     private String status;
 
     @SuppressLint("SetTextI18n")

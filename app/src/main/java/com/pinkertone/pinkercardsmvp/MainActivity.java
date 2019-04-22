@@ -4,17 +4,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
-import com.google.gson.Gson;
-
-import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
     SharedPreferences sPref;
-    final String TOKEN = "Token";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sPref = getSharedPreferences("AuthData", MODE_PRIVATE);
-        String token = sPref.getString(TOKEN, "");
-        assert token != null;
-        if (token.equals("")){
+        if (!sPref.contains("Token") || !sPref.contains("username")){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();

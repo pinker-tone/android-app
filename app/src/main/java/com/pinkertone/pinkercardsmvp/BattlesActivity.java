@@ -78,7 +78,6 @@ public class BattlesActivity extends AppCompatActivity {
                         }
 
                         String date = game.date.substring(11, 19) + " " + game.date.substring(8, 10) + "/" + game.date.substring(5, 7);
-
                         String battleState = null;
                         String battleScore = "";
 

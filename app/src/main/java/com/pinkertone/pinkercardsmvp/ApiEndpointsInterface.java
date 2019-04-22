@@ -1,5 +1,6 @@
 package com.pinkertone.pinkercardsmvp;
 
+import com.pinkertone.pinkercardsmvp.model.AccountInfo;
 import com.pinkertone.pinkercardsmvp.model.CreateUser;
 import com.pinkertone.pinkercardsmvp.model.LogToken;
 import com.pinkertone.pinkercardsmvp.model.Game;
@@ -43,4 +44,7 @@ public interface ApiEndpointsInterface {
     @POST("auth/users/create/")
     Call<CreateUser> createUser(@Field("username") String username, @Field("password") String password,
                                 @Field("email") String email);
+
+    @GET("auth/users/me/")
+    Call<AccountInfo> getAccountInfo(@Header("Authorization") String token);
 }
