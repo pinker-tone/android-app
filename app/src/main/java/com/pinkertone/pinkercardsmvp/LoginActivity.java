@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.pinkertone.pinkercardsmvp.model.AccountInfo;
 import com.pinkertone.pinkercardsmvp.model.LogToken;
 
 //import java.io.IOException;
@@ -77,6 +78,26 @@ public class LoginActivity extends AppCompatActivity {
                     ed.putString(TOKEN, token.authToken);
                     ed.putString("username", username.toLowerCase());
                     ed.commit();
+
+                    Call<AccountInfo> call2 = Singleton.getInstance().apiService.getAccountInfo("Token " + sPref.getString("Token", ""));
+
+                    call2.enqueue(new Callback<AccountInfo>() {
+                        @Override
+                        public void onResponse(Call<AccountInfo> call, Response<AccountInfo> response) {
+                            if (response.isSuccessful()) {
+                                AccountInfo acc_info = response.body();
+                                if (!acc_info.email.isEmpty()){
+                                    ed.putString("email", acc_info.email);
+                                    ed.commit();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<AccountInfo> call, Throwable t) {
+
+                        }
+                    });
                     jumpToBattles();
                 }
                 else {

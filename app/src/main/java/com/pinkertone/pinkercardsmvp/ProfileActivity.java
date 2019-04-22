@@ -26,38 +26,26 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        System.out.println("Hello bitches!");
+
         name = findViewById(R.id.name);
         designation = findViewById(R.id.designation);
 
         sPref = getSharedPreferences("AuthData", MODE_PRIVATE);
         ed = sPref.edit();
 
-        Call<AccountInfo> call = Singleton.getInstance().apiService.getAccountInfo("Token " + sPref.getString("Token", ""));
-
-        call.enqueue(new Callback<AccountInfo>() {
-            @Override
-            public void onResponse(Call<AccountInfo> call, Response<AccountInfo> response) {
-                if (response.isSuccessful()) {
-                    AccountInfo acc_info = response.body();
-
-                    name.setText(acc_info.username);
-                    designation.setText(acc_info.email);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AccountInfo> call, Throwable t) {
-
-            }
-        });
+        name.setText(sPref.getString("username", ""));
+        designation.setText(sPref.getString("email", "You have no email"));
     }
 
     public void exit(View view){
 
         ed.remove("Token");
         ed.remove("username");
+        ed.remove("email");
         ed.commit();
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
      }

@@ -42,11 +42,6 @@ public class BattlesActivity extends AppCompatActivity {
         super.onStart();
 
         sPref = getSharedPreferences("AuthData", MODE_PRIVATE);
-        if (!sPref.contains("Token") || !sPref.contains("username")){
-            Intent intent = new Intent(BattlesActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
         final String myusername = sPref.getString("username", "").toLowerCase();
         final String token = sPref.getString(TOKEN, "");
         Call<ArrayList<Game>> call = Singleton.getInstance().apiService.getGames(TOKEN + " " +token);
