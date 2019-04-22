@@ -40,11 +40,14 @@ public class BattlesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_battles);
         battlesLV = findViewById(R.id.battlesLV);
         noGames = findViewById(R.id.no_games_layout);
-
+        LayoutInflater ngInflater = getLayoutInflater();
+        View view = ngInflater.inflate(R.layout.no_games, null, false);
+        noGames.addView(view);
     }
 
     @Override
     protected void onStart() {
+
         super.onStart();
 
         noGames.setVisibility(View.GONE);
@@ -179,9 +182,6 @@ public class BattlesActivity extends AppCompatActivity {
                         });
                     } else {
                         noGames.setVisibility(View.VISIBLE);
-                        LayoutInflater ngInflater = getLayoutInflater();
-                        View view = ngInflater.inflate(R.layout.no_games, null, false);
-                        noGames.addView(view);
                     }
                 } else {
                     System.out.println(response.body());
