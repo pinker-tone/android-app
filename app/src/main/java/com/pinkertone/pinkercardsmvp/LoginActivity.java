@@ -65,25 +65,26 @@ public class LoginActivity extends AppCompatActivity {
                     ed.putString(TOKEN, token.authToken);
                     ed.commit();
 
-                    Call<AccountInfo> call2 = Singleton.getInstance().apiService.getAccountInfo("Token " + sPref.getString("Token", ""));
-
+                    Call<AccountInfo> call2 = Singleton.getInstance().apiService.getAccountInfo("Token " + token.authToken);
+                    System.out.println(token.authToken);
                     call2.enqueue(new Callback<AccountInfo>() {
                         @Override
                         public void onResponse(Call<AccountInfo> call, Response<AccountInfo> response) {
                             if (response.isSuccessful()) {
                                 AccountInfo acc_info = response.body();
                                 if (!acc_info.email.isEmpty()){
+                                    System.out.println(response.body());
                                     ed.putString("email", acc_info.email);
-                                    ed.putString("username", acc_info.username);
-                                    ed.commit();
-                                    jumpToBattles();
                                 }
+                                ed.putString("username", acc_info.username);
+                                ed.commit();
+                                jumpToBattles();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<AccountInfo> call, Throwable t) {
-
+                            System.out.println(t.getMessage());
                         }
                     });
                 }
