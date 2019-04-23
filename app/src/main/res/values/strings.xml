@@ -17,4 +17,9 @@
     <string name="something_went_wrong">Пользователь с таким ником или почтой уже существует.</string>
     <string name="exit">Выйти из аккаунта</string>
 
+    <!--Buttons in MainActivity-->
+    <string name="battles">Сражения</string>
+    <string name="summary">Конспекты</string>
+    <string name="flashcards">Флешкарты</string>
+    <string name="profile">Профиль</string>
 </resources>
