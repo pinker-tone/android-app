@@ -6,14 +6,14 @@
     <color name="background">#FFFDAC</color>
 
     <!-- Game state -->
-    <color name="colorWaiting">#B8B8B8</color>
+    <color name="colorWaiting">#A7A7A7</color>
     <color name="colorAcceptNeeded">#E040FB</color>
-    <color name="colorWin">#3ED81B</color>
-    <color name="colorDefeat">#FA1D1D</color>
+    <color name="colorWin">#33B119</color>
+    <color name="colorDefeat">#E91A1A</color>
     <color name="colorDraw">#E4CF0D</color>
 
     <color name="cardBG">#FAE01B</color>
 
     <color name="unAcceptedBG">#88F36464</color>
-    <color name="normal">#F5EEEE</color>
+    <color name="normal">#ECECEC</color>
 </resources>

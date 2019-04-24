@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    tools:context=".EnemiesActivity"
+    android:orientation="vertical"
+    android:background="@drawable/bg_orange_blue">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/opponent"/>
+
+<ListView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/enemiesLV"
-    tools:context=".EnemiesActivity"
-    android:background="?android:attr/activatedBackgroundIndicator">
-    <!--background -
-        элементы списка реагировать на нажатие изменением цвета -->
+    android:id="@+id/enemiesLV">
 
 </ListView>
+
+</LinearLayout>
 

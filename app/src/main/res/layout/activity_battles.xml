@@ -19,7 +19,8 @@
             android:paddingStart="14dp"
             android:paddingEnd="8dp"
             android:text="Новый батл начать"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:fontFamily="@font/sf_regular"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,13 +34,17 @@
             android:paddingStart="14dp"
             android:paddingEnd="8dp"
             android:text="@string/globalRating"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:fontFamily="@font/sf_regular"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Текущие бои"
+            android:background="@color/normal"
             android:paddingBottom="5dp"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/sf_light">
         </TextView>
         <ListView
             android:id="@+id/battlesLV"
@@ -47,7 +52,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone"
-            android:background="?android:attr/activatedBackgroundIndicator">
+            android:background="@drawable/background">
         </ListView>
         <LinearLayout
             android:id="@+id/no_games_layout"

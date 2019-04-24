@@ -23,11 +23,13 @@
             android:id="@+id/enemyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/sf_medium"/>
         <TextView
             android:id="@+id/battleDate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_light"/>
     </LinearLayout>
 
     <LinearLayout
@@ -41,7 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:fontFamily="@font/sf_regular"/>
 
         <TextView
             android:id="@+id/battleState"
@@ -50,13 +53,16 @@
             android:layout_marginEnd="3dp"
             android:layout_weight="2"
             android:gravity="center"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:textColor="#E7E7E7"
+            android:fontFamily="@font/sf_medium"/>
         <TextView
             android:id="@+id/battleScore"
-            android:layout_width="wrap_content"
+            android:layout_width="15dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:fontFamily="@font/sf_medium"/>
     </LinearLayout>
 
 </LinearLayout>
