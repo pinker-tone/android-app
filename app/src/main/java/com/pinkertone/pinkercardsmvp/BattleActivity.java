@@ -1,6 +1,7 @@
 package com.pinkertone.pinkercardsmvp;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ public class BattleActivity extends AppCompatActivity {
     public String[] questions;
     private int correctAnswers = 0;
     private int id;
+    private CountDownTimer timer;
+    private TextView timerTV;
     private String status;
     private TextView numberQuestion;
 
@@ -27,6 +30,7 @@ public class BattleActivity extends AppCompatActivity {
         id = arguments.getInt("game_id");
         questionsTV = findViewById(R.id.questionTV);
         numberQuestion = findViewById(R.id.questionNumber);
+        timerTV = findViewById(R.id.timer);
 
         questions = arguments.getStringArray("questions");
         rightAnswers = arguments.getBooleanArray("rightAnswers");
@@ -36,7 +40,30 @@ public class BattleActivity extends AppCompatActivity {
         questionsTV.setText(questions[questionNumber]);
         numberQuestion.setText(questionNumber+1 + "/5");
         questionNumber++;
+
+        timer = new CountDownTimer(15000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timerTV.setText("0:" + millisUntilFinished / 1000);
+            }
+
+            @Override
+            public void onFinish() {
+                splashTimeOut(timerTV);
+                nextQuestion();
+            }
+        };
+        timerTV.setText("0:15");
+        timer.start();
     }
+
+    @Override
+    public void onDestroy(){
+        timer.cancel();
+        super.onDestroy();
+
+    }
+
 
     public void splashRight(View view){
         Snackbar.make(view, "А ты шаришь", Snackbar.LENGTH_LONG)
@@ -48,7 +75,13 @@ public class BattleActivity extends AppCompatActivity {
                 .setAction("Action", null).show();
     }
 
+    public void splashTimeOut(View view){
+        Snackbar.make(view, "Время истекло!", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
     public void answerYes(View view){
+        timer.cancel();
         if (rightAnswers[questionNumber-1]){
             splashRight(view);
             this.correctAnswers++;
@@ -63,6 +96,7 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     public void answerNo(View view){
+        timer.cancel();
         if (!rightAnswers[questionNumber - 1]){
             splashRight(view);
             this.correctAnswers++;
@@ -77,6 +111,8 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     private void nextQuestion(){
+        timerTV.setText("0:15");
+        timer.start();
         questionsTV.setText(questions[questionNumber]);
         numberQuestion.setText(questionNumber+1 + "/5");
         questionNumber++;
@@ -92,4 +128,6 @@ public class BattleActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
 }
