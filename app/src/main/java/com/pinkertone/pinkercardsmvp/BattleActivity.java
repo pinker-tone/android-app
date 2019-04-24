@@ -73,17 +73,17 @@ public class BattleActivity extends AppCompatActivity {
 
 
     public void splashRight(View view){
-        Snackbar.make(view, "А ты шаришь", Snackbar.LENGTH_LONG)
+        Snackbar.make(view, getResources().getText(R.string.correctSnackbar), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
     }
 
     public void splashWrong(View view){
-        Snackbar.make(view, "Вот тут ты не прав, дружок!", Snackbar.LENGTH_LONG)
+        Snackbar.make(view, getResources().getText(R.string.wrongSnackbar), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 
     public void splashTimeOut(View view){
-        Snackbar.make(view, "Время истекло!", Snackbar.LENGTH_LONG)
+        Snackbar.make(view, getResources().getText(R.string.timeIsOverSnackBar), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 
