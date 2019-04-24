@@ -64,7 +64,7 @@ public class BattlesActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (response.body().size() > 0) {
                         battlesLV.setVisibility(View.VISIBLE);
-                        ArrayList<BattleItem> battleItems = new ArrayList<BattleItem>();
+                        ArrayList<BattleItem> battleItems = new ArrayList<>();
                         BattlesAdapter battlesAdapter;
 
                         for (Game game : response.body()) {
@@ -73,18 +73,10 @@ public class BattlesActivity extends AppCompatActivity {
 
                             if (game.user1.username.toLowerCase().equals(myusername)) {
                                 enemyName = game.user2.username;
-                                if (game.answersCorrectUser1 == null) {
-                                    isAccepted = false;
-                                } else {
-                                    isAccepted = true;
-                                }
+                                isAccepted = game.answersCorrectUser1 != null;
                             } else {
                                 enemyName = game.user1.username;
-                                if (game.answersCorrectUser2 == null) {
-                                    isAccepted = false;
-                                } else {
-                                    isAccepted = true;
-                                }
+                                isAccepted = game.answersCorrectUser2 != null;
                             }
 
                             String date = game.date.substring(11, 19) + " " + game.date.substring(8, 10) + "/" + game.date.substring(5, 7);
@@ -228,6 +220,11 @@ public class BattlesActivity extends AppCompatActivity {
         intent.putExtra("whatToDo", whatToDo);
         intent.putExtra("rightAnswersNum", correctAnswers);
         intent.putExtra("opponent", opponent);
+        startActivity(intent);
+    }
+
+    public void jumpToRating(View view) {
+        Intent intent = new Intent(BattlesActivity.this, RatingActivity.class);
         startActivity(intent);
     }
 

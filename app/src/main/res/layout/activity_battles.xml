@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/button_yes"
             android:drawableEnd="@drawable/ic_navigate_next_black_24dp"
             android:drawablePadding="8dp"
@@ -19,6 +19,20 @@
             android:paddingStart="14dp"
             android:paddingEnd="8dp"
             android:text="Новый батл начать"
+            android:textSize="12sp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/button_yes"
+            android:drawableEnd="@drawable/ic_navigate_next_black_24dp"
+            android:drawablePadding="8dp"
+            android:onClick="jumpToRating"
+            android:paddingStart="14dp"
+            android:paddingEnd="8dp"
+            android:text="@string/globalRating"
             android:textSize="12sp" />
         <TextView
             android:layout_width="wrap_content"
