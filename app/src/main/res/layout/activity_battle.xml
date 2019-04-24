@@ -26,8 +26,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="23sp"
-            android:textColor="@color/timerEnough"
-            android:text="0:27"/>
+            android:textColor="@color/timerEnough"/>
         <TextView
             android:id="@+id/questionNumber"
             android:layout_width="wrap_content"
@@ -75,14 +74,14 @@
             style="@style/YesNoBtnStyle"
             android:background="@drawable/button_yes"
             android:onClick="answerYes"
-            android:text="Да" />
+            android:text="@string/yes" />
 
         <Button
             android:id="@+id/noBtn"
             style="@style/YesNoBtnStyle"
             android:background="@drawable/button_no"
             android:onClick="answerNo"
-            android:text="Нет" />
+            android:text="@string/no" />
     </LinearLayout>
 
 

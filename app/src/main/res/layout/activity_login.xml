@@ -19,6 +19,7 @@
         android:layout_marginTop="72dp"
         android:layout_marginEnd="8dp"
         android:text="@string/enterSign"
+        android:fontFamily="@font/sf_regular"
         android:textSize="36sp"
         android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +69,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="8dp"
+            android:textColor="#fff"
             android:text="@string/enterBtn"
+            android:background="@drawable/button_blue_gradient"
             android:onClick="enter"/>
     </LinearLayout>
 
@@ -76,7 +79,9 @@
         android:id="@+id/enterGotoRegistrationTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/registrationGoto"
+        android:fontFamily="sans-serif-thin"
         android:onClick="jumpToSignUp"/>
 
 

@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">pCards</string>
+    <string name="app_name">pLearn</string>
+    <string name="app_full_name">PINKER:learn</string>
     <string name="enterSign">Вход</string>
     <string name="registrationSign">Регистрация</string>
     <string name="registrationGoto">Регистрация</string>
@@ -18,6 +19,13 @@
     <string name="exit">Выйти из аккаунта</string>
     <string name="inDeveloping">В процессе разработки</string>
     <string name="globalRating">Глобальный рейтинг</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="thisBattleQuestions">Вопросы этой дуэли</string>
+    <string name="correctAnswers">правильных ответов</string>
+    <string name="new_battle_btn">Новый поединок</string>
+    <string name="currentBattles">Текущие бои</string>
+    <string name="noGamesAvailable">У Вас нет игр</string>
 
     <!--Buttons in MainActivity-->
     <string name="battles">Сражения</string>

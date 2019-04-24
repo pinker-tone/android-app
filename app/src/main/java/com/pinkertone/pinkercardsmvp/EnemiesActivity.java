@@ -30,7 +30,8 @@ public class EnemiesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_enemies);
         sPref = getSharedPreferences("AuthData", MODE_PRIVATE);
         final String token = sPref.getString(TOKEN, "");
-        if (token == ""){
+        assert token != null;
+        if (token.equals("")){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();

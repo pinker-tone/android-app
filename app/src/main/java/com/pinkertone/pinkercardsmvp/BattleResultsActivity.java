@@ -4,16 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pinkertone.pinkercardsmvp.model.Game;
-import com.pinkertone.pinkercardsmvp.model.StandartAnswer;
+import com.pinkertone.pinkercardsmvp.model.StandardAnswer;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,10 +59,10 @@ public class BattleResultsActivity extends AppCompatActivity {
                 String opponent = arguments.getString("opponent");
                 motivationTV.setText("Вы играете против " + opponent);
             } else if (whatToDo.equals("SEND")) {
-                Call<StandartAnswer> answerCall = Singleton.getInstance().apiService.sendAnswer(TOKEN + " " + token, id, rightAnswersNum);
-                answerCall.enqueue(new Callback<StandartAnswer>() {
+                Call<StandardAnswer> answerCall = Singleton.getInstance().apiService.sendAnswer(TOKEN + " " + token, id, rightAnswersNum);
+                answerCall.enqueue(new Callback<StandardAnswer>() {
                     @Override
-                    public void onResponse(Call<StandartAnswer> call, Response<StandartAnswer> response) {
+                    public void onResponse(Call<StandardAnswer> call, Response<StandardAnswer> response) {
                         if (response.isSuccessful()) {
                             Call<ArrayList<Game>> gameCall = Singleton.getInstance().apiService.getCertainGame(TOKEN + " " + token, id);
                             gameCall.enqueue(new Callback<ArrayList<Game>>() {
@@ -120,7 +116,7 @@ public class BattleResultsActivity extends AppCompatActivity {
                         }
                     }
                     @Override
-                    public void onFailure(Call<StandartAnswer> call, Throwable t){
+                    public void onFailure(Call<StandardAnswer> call, Throwable t){
 
                     }
                 });

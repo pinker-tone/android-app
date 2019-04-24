@@ -17,7 +17,7 @@ public class FlashcardsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flashcards);
 
-        webView = findViewById(R.id.flashcarsdWV);
+        webView = findViewById(R.id.flashcardsWV);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("https://umbrien.github.io/history_flashcards");
 

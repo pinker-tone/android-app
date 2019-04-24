@@ -3,7 +3,7 @@ package com.pinkertone.pinkercardsmvp.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class StandartAnswer {
+public class StandardAnswer {
     @SerializedName("status")
     @Expose
     public int status;

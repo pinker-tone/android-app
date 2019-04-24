@@ -5,6 +5,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:textSize="40dp"
+    android:textSize="40sp"
     android:gravity="center"
-    android:text="У вас нет игр"/>
+    android:text="@string/noGamesAvailable"
+    android:fontFamily="@font/sf_light"/>

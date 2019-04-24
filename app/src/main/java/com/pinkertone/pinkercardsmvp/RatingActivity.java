@@ -22,7 +22,7 @@ public class RatingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rating);
 
         ListView ratingLV = (ListView) findViewById(R.id.ratingLV);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, usersRating);
         ratingLV.setAdapter(adapter);
     }
