@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FlashcardsActivity"></activity>
+        <activity android:name=".InDevelopingActivity"></activity>
+        <activity android:name=".FlashcardsActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".EnemiesActivity" />
         <activity android:name=".BattleActivity" />

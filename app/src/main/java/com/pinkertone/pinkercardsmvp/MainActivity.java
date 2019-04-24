@@ -43,4 +43,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, FlashcardsActivity.class);
         startActivity(intent);
     }
+
+    public void jumpToInDeveloping(View view) {
+        Intent intent = new Intent(MainActivity.this, InDevelopingActivity.class);
+        startActivity(intent);
+    }
 }
