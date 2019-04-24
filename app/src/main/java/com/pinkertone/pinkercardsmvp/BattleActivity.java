@@ -41,10 +41,17 @@ public class BattleActivity extends AppCompatActivity {
         numberQuestion.setText(questionNumber+1 + "/5");
         questionNumber++;
 
-        timer = new CountDownTimer(15000, 1000) {
+        timer = new CountDownTimer(11000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                timerTV.setText("0:" + millisUntilFinished / 1000);
+                if (millisUntilFinished >= 10000) {
+                    timerTV.setText("0:" + millisUntilFinished / 1000);
+                } else {
+                    timerTV.setText("0:0" + millisUntilFinished / 1000);
+                    if (millisUntilFinished <= 4000) {
+                        timerTV.setTextColor(getResources().getColor(R.color.timerWasting));
+                    }
+                }
             }
 
             @Override
@@ -111,7 +118,8 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     private void nextQuestion(){
-        timerTV.setText("0:15");
+        timerTV.setText("0:10");
+        timerTV.setTextColor(getResources().getColor(R.color.timerEnough));
         timer.start();
         questionsTV.setText(questions[questionNumber]);
         numberQuestion.setText(questionNumber+1 + "/5");

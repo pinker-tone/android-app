@@ -26,6 +26,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="23sp"
+            android:textColor="@color/timerEnough"
             android:text="0:27"/>
         <TextView
             android:id="@+id/questionNumber"
